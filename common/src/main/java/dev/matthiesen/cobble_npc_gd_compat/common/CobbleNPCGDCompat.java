@@ -6,9 +6,9 @@ import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.WorldExtensions;
 import dev.matthiesen.common.matthiesen_lib_api.abstracts.AbstractCommonMod;
 import dev.matthiesen.libs.faststats.Token;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-public class CobbleNPCGDCompat extends AbstractCommonMod {
+public final class CobbleNPCGDCompat extends AbstractCommonMod {
     public static final String MOD_ID = "cobble_npc_gd_compat";
     public static final String MOD_NAME = "Cobblemon NPC GriefDefender Compatability";
     public static @Token final String METRICS_TOKEN = "ca6c7119064f9cfeeb83829dccab9ec6";
@@ -20,7 +20,7 @@ public class CobbleNPCGDCompat extends AbstractCommonMod {
     }
 
     @Override
-    public @Nullable @Token String getMetricsToken() {
+    public @Token @NotNull String getMetricsToken() {
         return METRICS_TOKEN;
     }
 

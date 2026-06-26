@@ -19,10 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "dev.matthiesen.template_cobblemon_sidemod.fabric.ExampleModFabric"
-    ],
-    "client": [
-      "dev.matthiesen.template_cobblemon_sidemod.fabric.ExampleModFabricClient"
+      "dev.matthiesen.cobble_npc_gd_compat.fabric.CobbleNPCGDCompatFabric"
     ]
   },
   "depends": {

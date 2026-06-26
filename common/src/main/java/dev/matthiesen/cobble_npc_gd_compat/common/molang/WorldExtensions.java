@@ -3,7 +3,6 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang;
 import com.bedrockk.molang.runtime.MoParams;
 import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.functions.WorldFunctions;
 
 import java.util.HashMap;

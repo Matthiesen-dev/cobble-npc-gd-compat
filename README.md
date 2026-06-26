@@ -14,7 +14,7 @@ A compatibility mod for Cobblemon and GriefDefender that allows NPCs to interact
 
 ## Docs
 
-Documentation for this mod can be found at [mods.matthiesen.dev](https://mods.matthiesen.dev/TODO/)
+Documentation for this mod can be found at [mods.matthiesen.dev](https://mods.matthiesen.dev/cobble-npc-gd-compat/)
 
 ## Version Compatibility
 

@@ -38,6 +38,8 @@ dependencies {
     }
     shadowBundle(project(":common", configuration = "transformProductionNeoForge"))
 
+    modImplementation(files("${rootProject.rootDir}/jars/griefdefender-neoforge-1.21.1-3.1.3-DEV.jar"))
+
     testImplementation(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
 }

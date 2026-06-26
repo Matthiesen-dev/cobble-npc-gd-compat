@@ -4,6 +4,8 @@ import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.NPCExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.PlayerExtensions;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.WorldExtensions;
 import dev.matthiesen.common.matthiesen_lib_api.abstracts.AbstractCommonMod;
 import dev.matthiesen.libs.faststats.Token;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +32,8 @@ public class CobbleNPCGDCompat extends AbstractCommonMod {
 
         NPCExtensions.register();
         PlayerExtensions.register();
+        ServerExtensions.register();
+        WorldExtensions.register();
         createInfoLog("Initialized");
     }
 

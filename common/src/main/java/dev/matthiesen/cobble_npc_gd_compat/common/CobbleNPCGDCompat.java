@@ -1,7 +1,5 @@
 package dev.matthiesen.cobble_npc_gd_compat.common;
 
-import com.griefdefender.api.Core;
-import com.griefdefender.api.GriefDefender;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.NPCExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.PlayerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
@@ -40,9 +38,5 @@ public class CobbleNPCGDCompat extends AbstractCommonMod {
     @Override
     public Runnable reload() {
         return () -> {};
-    }
-
-    public Core getGriefDefenderCore() {
-        return GriefDefender.getCore();
     }
 }

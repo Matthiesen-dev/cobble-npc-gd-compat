@@ -15,6 +15,14 @@ public final class WorldFunctions {
         return GDUtils.getClaim(level, x, y, z);
     }
 
+    public static Function<MoParams, Object> isWilderness(Level level) {
+        return moParams -> {
+            var claim = getClaim(level, moParams);
+            if (claim.getClaim() == null) return 0;
+            return claim.isWilderness() ? 1 : 0;
+        };
+    }
+
     public static Function<MoParams, Object> getClaimUUID(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);

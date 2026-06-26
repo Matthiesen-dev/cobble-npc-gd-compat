@@ -17,6 +17,9 @@ public final class WorldExtensions {
             var world = levelHolder.value();
             HashMap<String, Function<MoParams, Object>> map = new HashMap<>();
 
+            // q.world.is_wilderness(x, y, z) returns 1 for true or 0
+            map.put("is_wilderness", WorldFunctions.isWilderness(world));
+
             // q.world.gd_get_claim_uuid(x, y, z) returns string or 0
             map.put("gd_get_claim_uuid", WorldFunctions.getClaimUUID(world));
 

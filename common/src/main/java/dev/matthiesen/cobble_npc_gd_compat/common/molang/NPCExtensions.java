@@ -18,17 +18,17 @@ public final class NPCExtensions {
             // q.npc.gd_is_wilderness() returns 1 for true, or 0
             map.put("gd_is_wilderness", NPCFunctions.isWilderness(npcEntity));
 
-            // q.npc.gd_standing_claim_uuid() returns string or 0
-            map.put("gd_standing_claim_uuid", NPCFunctions.standingClaimUUID(npcEntity));
+            // q.npc.gd_claim_uuid() returns string or 0
+            map.put("gd_claim_uuid", NPCFunctions.standingClaimUUID(npcEntity));
 
-            // q.npc.gd_standing_claim_name() returns string or 0
-            map.put("gd_standing_claim_name", NPCFunctions.standingClaimName(npcEntity));
+            // q.npc.gd_claim_name() returns string or 0
+            map.put("gd_claim_name", NPCFunctions.standingClaimName(npcEntity));
 
-            // q.npc.gd_standing_claim_owner_uuid() returns string or 0
-            map.put("gd_standing_claim_owner_uuid", NPCFunctions.standingClaimOwnerUUID(npcEntity));
+            // q.npc.gd_claim_owner_uuid() returns string or 0
+            map.put("gd_claim_owner_uuid", NPCFunctions.standingClaimOwnerUUID(npcEntity));
 
-            // q.npc.gd_standing_claim_owner_name() returns string or 0
-            map.put("gd_standing_claim_owner_name", NPCFunctions.standingClaimOwnerName(npcEntity));
+            // q.npc.gd_claim_owner_name() returns string or 0
+            map.put("gd_claim_owner_name", NPCFunctions.standingClaimOwnerName(npcEntity));
 
             return map;
         });

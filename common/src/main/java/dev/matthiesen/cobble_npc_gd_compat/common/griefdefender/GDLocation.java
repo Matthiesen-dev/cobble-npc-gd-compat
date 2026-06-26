@@ -6,22 +6,39 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-import static dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils.*;
-
-public final class GDLocation {
-    private final UUID worldID;
-    private final int x;
-    private final int y;
-    private final int z;
-
-    public GDLocation(Level level, int x, int y, int z) {
-        this.worldID = getWorldID(level);
-        this.x = x;
-        this.y = y;
-        this.z = z;
+public record GDLocation(Level level, int x, int y, int z) {
+    public @Nullable Claim getClaim() {
+        UUID worldID = GDUtils.getWorldID(level);
+        return GDUtils.getGriefDefenderCore().getClaimAt(worldID, x, y, z);
     }
 
-    public @Nullable Claim getClaim() {
-        return getGriefDefenderCore().getClaimAt(worldID, x, y, z);
+    public boolean isWilderness() {
+        Claim claim = getClaim();
+        if (claim == null) return false;
+        return claim.isWilderness();
+    }
+
+    public UUID getUUID() {
+        Claim claim = getClaim();
+        if (claim == null) return null;
+        return claim.getUniqueId();
+    }
+
+    public String getDisplayName() {
+        Claim claim = getClaim();
+        if (claim == null) return null;
+        return claim.getDisplayName();
+    }
+
+    public UUID getOwnerUUID() {
+        Claim claim = getClaim();
+        if (claim == null) return null;
+        return claim.getOwnerUniqueId();
+    }
+
+    public String getOwnerName() {
+        Claim claim = getClaim();
+        if (claim == null) return null;
+        return claim.getOwnerName();
     }
 }

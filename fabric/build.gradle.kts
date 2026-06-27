@@ -22,8 +22,6 @@ dependencies {
     "developmentFabric"(project(":common", configuration = "namedElements"))
     shadowBundle(project(":common", configuration = "transformProductionFabric"))
 
-    modImplementation(files("${rootProject.rootDir}/jars/griefdefender-fabric-1.21.1-3.1.10-DEV.jar"))
-
     testImplementation(libs.junit.api)
     testRuntimeOnly(libs.junit.engine)
 }

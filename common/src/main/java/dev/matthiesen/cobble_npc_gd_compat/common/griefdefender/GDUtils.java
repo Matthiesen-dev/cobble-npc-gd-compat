@@ -2,6 +2,7 @@ package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.data.PlayerData;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -18,6 +19,10 @@ public final class GDUtils {
 
     public static UUID getWorldID(Level level) {
         return getGriefDefenderCore().getWorldUniqueId(level);
+    }
+
+    public static PlayerData getPlayerData(Level level, UUID playerUUID) {
+        return getGriefDefenderCore().getPlayerData(getWorldID(level), playerUUID);
     }
 
     public static GDLocation getClaim(Level level, int x, int y, int z) {

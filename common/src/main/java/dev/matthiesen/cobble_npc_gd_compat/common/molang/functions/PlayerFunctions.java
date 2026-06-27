@@ -1,9 +1,7 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 
 import com.bedrockk.molang.runtime.MoParams;
-import com.bedrockk.molang.runtime.value.DoubleValue;
 import com.bedrockk.molang.runtime.value.StringValue;
-import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.data.PlayerData;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.SimpleClaimData;
@@ -16,7 +14,7 @@ public final class PlayerFunctions {
     public static Function<MoParams, Object> getPlayerClaims(Player player) {
         return params -> {
             List<SimpleClaimData> playerClaims = GDUtils.getPlayerClaims(player.getUUID());
-            return new ObjectValue<>(playerClaims, SimpleClaimData::makeString, d -> DoubleValue.ONE.value());
+            return SimpleClaimData.asMolangValueFromList(playerClaims);
         };
     }
 

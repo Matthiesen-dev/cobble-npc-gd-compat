@@ -5,6 +5,7 @@ import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.SimpleClaimData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
@@ -27,6 +28,14 @@ public final class NPCFunctions {
             var claim = getClaim(npcEntity);
             UUID claimUUID = claim.getUUID();
             return claimUUID != null ? new StringValue(claimUUID.toString()) : UniversalFunctions.isNull();
+        };
+    }
+
+    public static Function<MoParams, Object> standingClaimData(NPCEntity npcEntity) {
+        return params -> {
+            var claim = getClaim(npcEntity);
+            SimpleClaimData claimData = SimpleClaimData.fromGDLocation(claim);
+            return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
         };
     }
 

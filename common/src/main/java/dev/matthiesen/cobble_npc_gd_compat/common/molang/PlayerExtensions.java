@@ -19,7 +19,8 @@ public final class PlayerExtensions {
             // q.player.gd_economy_enabled() returns 1 for true, or 0
             map.put("gd_economy_enabled", UniversalFunctions.isEconomyEnabled());
 
-            // q.player.gd_claims() return list of UUIDs
+            // q.npc.gd_get_player_claims(<uuid>) returns array of claims for user in the following format
+            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string" } ]
             map.put("gd_claims", PlayerFunctions.getPlayerClaims(player));
 
             // q.player.gd_current_claim() returns UUID as string or 0;

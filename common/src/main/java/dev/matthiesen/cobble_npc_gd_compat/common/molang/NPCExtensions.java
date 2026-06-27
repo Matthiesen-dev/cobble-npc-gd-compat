@@ -26,6 +26,10 @@ public final class NPCExtensions {
             // q.npc.gd_is_wilderness() returns 1 for true, or 0
             map.put("gd_is_wilderness", NPCFunctions.isWilderness(npcEntity));
 
+            // q.npc.gd_claim_data() returns claim data for the npc in the following format
+            // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string" }
+            map.put("gd_claim_data", NPCFunctions.standingClaimData(npcEntity));
+
             // q.npc.gd_claim_uuid() returns string or 0
             map.put("gd_claim_uuid", NPCFunctions.standingClaimUUID(npcEntity));
 

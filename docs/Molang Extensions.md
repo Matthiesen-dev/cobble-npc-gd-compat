@@ -46,6 +46,15 @@ These functions are available on `q.npc`.
 
 - Returns: `1` if the NPC is standing in wilderness, otherwise `0`
 
+### `gd_claim_data()`
+
+- Returns: claim data for the NPC's current location, or `0` if none exists
+- Claim object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
+
 ### `gd_claim_uuid()`
 
 - Returns: the claim UUID as a string, or `0` if none exists
@@ -68,7 +77,12 @@ These functions are available on `q.player`.
 
 ### `gd_claims()`
 
-- Returns: a list of claim UUIDs for the player
+- Returns: an array of claims for the player
+- Claim object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
 
 ### `gd_current_claim()`
 
@@ -161,6 +175,7 @@ These functions are available on `q.world`.
 ```molang
 q.player.gd_remaining_claim_blocks()
 q.world.gd_is_wilderness(0, 64, 0)
+q.npc.gd_claim_data()
 q.npc.gd_claim_owner_name()
 ```
 

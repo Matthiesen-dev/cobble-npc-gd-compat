@@ -5,7 +5,7 @@
   <img src="https://mods.matthiesen.dev/badges/cobblemon.svg" alt="Cobblemon">
 </div>
 
-A compatibility mod for Cobblemon and GriefDefender that allows NPCs to interact with GriefDefender claims.
+A compatibility mod for Cobblemon and GriefDefender that allows NPCs to interact and full data from GriefDefender claims.
 
 ## Requirements
 - [Matthiesen Lib API](https://modrinth.com/mod/matthiesen-lib-api)

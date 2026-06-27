@@ -1,6 +1,7 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 
 import com.bedrockk.molang.runtime.MoParams;
+import com.bedrockk.molang.runtime.value.StringValue;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import net.minecraft.world.level.Level;
@@ -18,44 +19,44 @@ public final class WorldFunctions {
     public static Function<MoParams, Object> isWilderness(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);
-            if (claim.getClaim() == null) return 0;
-            return claim.isWilderness() ? 1 : 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
+            return UniversalFunctions.intToDouble(claim.isWilderness() ? 1 : 0);
         };
     }
 
     public static Function<MoParams, Object> getClaimUUID(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getUUID();
-            return claimOwner != null ? claimOwner.toString() : 0;
+            return claimOwner != null ? new StringValue(claimOwner.toString()) : UniversalFunctions.isNull();
         };
     }
 
     public static Function<MoParams, Object> getClaimName(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getDisplayName();
-            return claimOwner != null ? claimOwner : 0;
+            return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();
         };
     }
 
     public static Function<MoParams, Object> getClaimOwnerUUID(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getOwnerUUID();
-            return claimOwner != null ? claimOwner.toString() : 0;
+            return claimOwner != null ? new StringValue(claimOwner.toString()) : UniversalFunctions.isNull();
         };
     }
 
     public static Function<MoParams, Object> getClaimOwnerName(Level level) {
         return moParams -> {
             var claim = getClaim(level, moParams);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getOwnerName();
-            return claimOwner != null ? claimOwner : 0;
+            return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();
         };
     }
 }

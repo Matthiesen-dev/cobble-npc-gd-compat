@@ -1,6 +1,7 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 
 import com.bedrockk.molang.runtime.MoParams;
+import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
@@ -18,14 +19,14 @@ public final class NPCFunctions {
     }
 
     public static Function<MoParams, Object> isWilderness(NPCEntity npcEntity) {
-        return params -> getClaim(npcEntity).isWilderness() ? 1 : 0;
+        return params -> UniversalFunctions.intToDouble(getClaim(npcEntity).isWilderness() ? 1 : 0);
     }
 
     public static Function<MoParams, Object> standingClaimUUID(NPCEntity npcEntity) {
         return params -> {
             var claim = getClaim(npcEntity);
             UUID claimUUID = claim.getUUID();
-            return claimUUID != null ? claimUUID.toString() : 0;
+            return claimUUID != null ? new StringValue(claimUUID.toString()) : UniversalFunctions.isNull();
         };
     }
 
@@ -33,25 +34,25 @@ public final class NPCFunctions {
         return params -> {
             var claim = getClaim(npcEntity);
             String displayName = claim.getDisplayName();
-            return displayName != null ? displayName : 0;
+            return displayName != null ? new StringValue(displayName) : UniversalFunctions.isNull();
         };
     }
 
     public static Function<MoParams, Object> standingClaimOwnerUUID(NPCEntity npcEntity) {
         return params -> {
             var claim = getClaim(npcEntity);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getOwnerUUID();
-            return claimOwner != null ? claimOwner.toString() : 0;
+            return claimOwner != null ? new StringValue(claimOwner.toString()) : UniversalFunctions.isNull();
         };
     }
 
     public static Function<MoParams, Object> standingClaimOwnerName(NPCEntity npcEntity) {
         return params -> {
             var claim = getClaim(npcEntity);
-            if (claim.getClaim() == null) return 0;
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getOwnerName();
-            return claimOwner != null ? claimOwner : 0;
+            return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();
         };
     }
 }

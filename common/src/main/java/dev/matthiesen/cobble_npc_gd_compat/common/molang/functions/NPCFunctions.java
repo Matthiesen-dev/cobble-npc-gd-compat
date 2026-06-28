@@ -3,12 +3,11 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -17,6 +16,22 @@ public final class NPCFunctions {
         Level level = npcEntity.getCommandSenderWorld();
         BlockPos pos = npcEntity.getOnPos();
         return GDUtils.getClaim(level, pos.getX(), pos.getY() + 1, pos.getZ());
+    }
+
+    public static Function<MoParams, Object> getAvailableRentals(NPCEntity npcEntity) {
+        return params -> {
+            Level level = npcEntity.getCommandSenderWorld();
+            List<RentalClaimData> rentals = GDRentals.getRentals(level);
+            return RentalClaimData.asMolangValueFromList(rentals);
+        };
+    }
+
+    public static Function<MoParams, Object> getStandingRental(NPCEntity npcEntity) {
+        return params -> {
+            var claim = getClaim(npcEntity);
+            var rental = RentalClaimData.fromGDLocation(claim);
+            return rental != null ? rental.asMolangValue() : UniversalFunctions.isNull();
+        };
     }
 
     public static Function<MoParams, Object> isWilderness(NPCEntity npcEntity) {

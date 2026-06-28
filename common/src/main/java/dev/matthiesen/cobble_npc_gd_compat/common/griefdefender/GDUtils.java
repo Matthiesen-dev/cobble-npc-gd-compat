@@ -2,6 +2,7 @@ package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.data.PlayerData;
 import net.minecraft.world.level.Level;
 
@@ -27,6 +28,10 @@ public final class GDUtils {
 
     public static GDLocation getClaim(Level level, int x, int y, int z) {
         return new GDLocation(level, x, y, z);
+    }
+
+    public static ClaimManager getClaimManager(UUID uuid) {
+        return getGriefDefenderCore().getClaimManager(uuid);
     }
 
     public static List<SimpleClaimData> getPlayerClaims(UUID player) {

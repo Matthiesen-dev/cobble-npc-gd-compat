@@ -3,9 +3,12 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.StringValue;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDRentals;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.RentalClaimData;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.function.Function;
 
 public final class WorldFunctions {
@@ -14,6 +17,13 @@ public final class WorldFunctions {
         int y = params.getInt(1);
         int z = params.getInt(2);
         return GDUtils.getClaim(level, x, y, z);
+    }
+
+    public static Function<MoParams, Object> getAvailableRentals(Level level) {
+        return params -> {
+            List<RentalClaimData> rentals = GDRentals.getRentals(level);
+            return RentalClaimData.asMolangValueFromList(rentals);
+        };
     }
 
     public static Function<MoParams, Object> isWilderness(Level level) {

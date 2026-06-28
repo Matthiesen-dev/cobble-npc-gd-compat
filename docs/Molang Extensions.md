@@ -71,6 +71,26 @@ These functions are available on `q.npc`.
 
 - Returns: the owner name as a string, or `0` if none exists
 
+### `gd_available_rentals()`
+
+- Returns: an array of available rentals
+- Rental object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
+  - `rentalRate`
+
+### `gd_claim_rental_data()`
+
+- Returns: claim info and rental rate for the NPC's current location, or `0` if none exists
+- Rental object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
+  - `rentalRate`
+
 ## Player Functions
 
 These functions are available on `q.player`.
@@ -132,6 +152,16 @@ These functions are available on `q.player`.
 
 - Returns: the rental limit as an integer
 
+### `gd_available_rentals()`
+
+- Returns: an array of available rentals
+- Rental object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
+  - `rentalRate`
+
 ## Server Functions
 
 These functions are available on `q.server`.
@@ -170,6 +200,16 @@ These functions are available on `q.world`.
 - Arguments: world coordinates
 - Returns: the owner name as a string, or `0` if none exists
 
+### `gd_available_rentals()`
+
+- Returns: an array of available rentals
+- Rental object format:
+  - `uuid`
+  - `displayName`
+  - `ownerUUID`
+  - `ownerName`
+  - `rentalRate`
+
 ## Example Usage
 
 ```molang
@@ -177,5 +217,6 @@ q.player.gd_remaining_claim_blocks()
 q.world.gd_is_wilderness(0, 64, 0)
 q.npc.gd_claim_data()
 q.npc.gd_claim_owner_name()
+q.npc.gd_claim_rental_data()
 ```
 

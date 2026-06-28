@@ -3,9 +3,12 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.StringValue;
 import com.griefdefender.api.data.PlayerData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDRentals;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.RentalClaimData;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.SimpleClaimData;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.function.Function;
@@ -15,6 +18,14 @@ public final class PlayerFunctions {
         return params -> {
             List<SimpleClaimData> playerClaims = GDUtils.getPlayerClaims(player.getUUID());
             return SimpleClaimData.asMolangValueFromList(playerClaims);
+        };
+    }
+
+    public static Function<MoParams, Object> getAvailableRentals(Player player) {
+        return params -> {
+            Level level = player.level();
+            List<RentalClaimData> rentals = GDRentals.getRentals(level);
+            return RentalClaimData.asMolangValueFromList(rentals);
         };
     }
 

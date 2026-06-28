@@ -16,7 +16,7 @@ public final class NPCFunctions {
     private static GDLocation getClaim(NPCEntity npcEntity) {
         Level level = npcEntity.getCommandSenderWorld();
         BlockPos pos = npcEntity.getOnPos();
-        return GDUtils.getClaim(level, pos.getX(), pos.getY(), pos.getZ());
+        return GDUtils.getClaim(level, pos.getX(), pos.getY() + 1, pos.getZ());
     }
 
     public static Function<MoParams, Object> isWilderness(NPCEntity npcEntity) {

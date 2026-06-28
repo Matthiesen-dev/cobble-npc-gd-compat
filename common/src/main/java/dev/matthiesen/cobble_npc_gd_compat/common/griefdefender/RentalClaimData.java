@@ -17,6 +17,12 @@ public record RentalClaimData(String uuid, String displayName, String ownerUUID,
         );
     }
 
+    public static RentalClaimData fromGDLocation(GDLocation location) {
+        Claim claim = location.getClaim();
+        if (claim == null) return null;
+        return fromClaim(claim);
+    }
+
     public static String makeString(RentalClaimData claimData) {
         return "{" +
                 "\"uuid\": \"" + claimData.uuid() + "\", " +

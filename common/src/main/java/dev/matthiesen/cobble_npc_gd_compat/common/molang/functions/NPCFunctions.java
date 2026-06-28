@@ -26,6 +26,14 @@ public final class NPCFunctions {
         };
     }
 
+    public static Function<MoParams, Object> getStandingRental(NPCEntity npcEntity) {
+        return params -> {
+            var claim = getClaim(npcEntity);
+            var rental = RentalClaimData.fromGDLocation(claim);
+            return rental != null ? rental.asMolangValue() : UniversalFunctions.isNull();
+        };
+    }
+
     public static Function<MoParams, Object> isWilderness(NPCEntity npcEntity) {
         return params -> UniversalFunctions.intToDouble(getClaim(npcEntity).isWilderness() ? 1 : 0);
     }

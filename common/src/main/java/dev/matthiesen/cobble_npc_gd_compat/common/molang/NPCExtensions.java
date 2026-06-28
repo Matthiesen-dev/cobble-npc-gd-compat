@@ -42,6 +42,10 @@ public final class NPCExtensions {
             // q.npc.gd_claim_owner_name() returns string or 0
             map.put("gd_claim_owner_name", NPCFunctions.standingClaimOwnerName(npcEntity));
 
+            // q.npc.gd_available_rentals() returns array of claims in the following format
+            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double } ]
+            map.put("gd_available_rentals", NPCFunctions.getAvailableRentals(npcEntity));
+
             return map;
         });
     }

@@ -13,7 +13,7 @@ public record RentalClaimData(String uuid, String displayName, String ownerUUID,
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
-                claim.getEconomyData().getRentRate()
+                claim.getEconomyData().isForRent() && claim.getEconomyData().getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0
         );
     }
 

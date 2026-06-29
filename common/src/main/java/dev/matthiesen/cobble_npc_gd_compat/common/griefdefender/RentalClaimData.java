@@ -15,18 +15,24 @@ public record RentalClaimData(
         String ownerName,
         double rentalRate,
         String renter,
-        String paymentType
+        String paymentType,
+        int rentMinTime,
+        int rentMaxTime
 ) {
     public static RentalClaimData fromClaim(Claim claim) {
         var economyData = claim.getEconomyData();
         double rentalRate = 0.0;
         UUID renter = null;
         PaymentType paymentType = PaymentType.UNDEFINED;
+        int rentMinTime = 0;
+        int rentMaxTime = 0;
 
         if (claim.getEconomyData().isForRent()) {
             rentalRate = economyData.getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0;
             renter = economyData.getRenters().getFirst();
             paymentType = economyData.getPaymentType();
+            rentMinTime = economyData.getRentMinTime();
+            rentMaxTime = economyData.getRentMaxTime();
         }
 
         return new RentalClaimData(
@@ -36,7 +42,9 @@ public record RentalClaimData(
                 claim.getOwnerName(),
                 rentalRate,
                 renter != null ? renter.toString() : "n/a",
-                paymentTypeToString(paymentType)
+                paymentTypeToString(paymentType),
+                rentMinTime,
+                rentMaxTime
         );
     }
 
@@ -65,6 +73,8 @@ public record RentalClaimData(
                 "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +
                 "\"renter\": \"" + claimData.renter() + "\"" +
                 "\"paymentType\": \"" + claimData.paymentType() + "\"" +
+                "\"rentMinTime\": \"" + claimData.rentMinTime() + "\"" +
+                "\"rentMaxTime\": \"" + claimData.rentMaxTime() + "\"" +
                 "}";
     }
 

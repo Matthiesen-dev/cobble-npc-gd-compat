@@ -112,6 +112,10 @@ public final class PlayerExtensions {
                 return UniversalFunctions.intToDouble(playerData.getRentalLimit());
             });
 
+            // TODO:
+            // q.player.gd_start_purchase(<claimUUID>)
+            // q.player.gd_start_rental(<claimUUID>)
+
             return map;
         });
     }

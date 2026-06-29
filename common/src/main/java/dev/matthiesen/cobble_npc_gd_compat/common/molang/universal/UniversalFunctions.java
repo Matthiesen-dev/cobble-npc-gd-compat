@@ -1,4 +1,4 @@
-package dev.matthiesen.cobble_npc_gd_compat.common.molang;
+package dev.matthiesen.cobble_npc_gd_compat.common.molang.universal;
 
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.DoubleValue;
@@ -23,8 +23,8 @@ public final class UniversalFunctions {
     }
 
     public static Function<MoParams, Object> getPlayerClaims() {
-        return moParams -> {
-            String stringUuid = moParams.getString(0);
+        return params -> {
+            String stringUuid = params.getString(0);
             UUID uuid = UUID.fromString(stringUuid);
             List<SimpleClaimData> playerClaims = GDUtils.getPlayerClaims(uuid);
             return SimpleClaimData.asMolangValueFromList(playerClaims);
@@ -32,7 +32,7 @@ public final class UniversalFunctions {
     }
 
     public static Function<MoParams, Object> isEconomyEnabled() {
-        return moParams -> intToDouble(GDUtils.isEconomyEnabled() ? 1 : 0);
+        return params -> intToDouble(GDUtils.isEconomyEnabled() ? 1 : 0);
     }
 
     public static Function<MoParams, Object> getAvailableRentals(Level level) {

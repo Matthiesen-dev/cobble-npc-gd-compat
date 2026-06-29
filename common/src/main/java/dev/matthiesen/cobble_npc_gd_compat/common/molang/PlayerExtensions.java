@@ -7,6 +7,7 @@ import com.griefdefender.api.data.PlayerData;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public final class PlayerExtensions {
             });
 
             // q.player.gd_current_claim() returns UUID as string or 0;
-            map.put("gd_current_claim", moParams -> {
+            map.put("gd_current_claim", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 var claim = playerData.getCurrentClaim();
                 if (claim == null) return UniversalFunctions.isNull();
@@ -46,67 +47,67 @@ public final class PlayerExtensions {
             });
 
             // q.player.gd_accrued_claim_blocks() returns an Integer
-            map.put("gd_accrued_claim_blocks", moParams -> {
+            map.put("gd_accrued_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getAccruedClaimBlocks());
             });
 
             // q.player.gd_blocks_accrued_per_hour() returns an Integer
-            map.put("gd_blocks_accrued_per_hour", moParams -> {
+            map.put("gd_blocks_accrued_per_hour", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getBlocksAccruedPerHour());
             });
 
             // q.player.gd_max_accrued_claim_blocks() returns an Integer
-            map.put("gd_max_accrued_claim_blocks", moParams -> {
+            map.put("gd_max_accrued_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getMaxAccruedClaimBlocks());
             });
 
             // q.player.gd_max_bonus_claim_blocks() returns an Integer
-            map.put("gd_max_bonus_claim_blocks", moParams -> {
+            map.put("gd_max_bonus_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getMaxBonusClaimBlocks());
             });
 
             // q.player.gd_max_claim_level() returns an Integer
-            map.put("gd_max_claim_level", moParams -> {
+            map.put("gd_max_claim_level", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getMaxClaimLevel());
             });
 
             // q.player.gd_min_claim_level() returns an Integer
-            map.put("gd_min_claim_level", moParams -> {
+            map.put("gd_min_claim_level", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getMinClaimLevel());
             });
 
             // q.player.gd_bonus_claim_blocks() returns an Integer
-            map.put("gd_bonus_claim_blocks", moParams -> {
+            map.put("gd_bonus_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getBonusClaimBlocks());
             });
 
             // q.player.gd_initial_claim_blocks() returns an Integer
-            map.put("gd_initial_claim_blocks", moParams -> {
+            map.put("gd_initial_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getInitialClaimBlocks());
             });
 
             // q.player.gd_remaining_claim_blocks() returns an Integer
-            map.put("gd_remaining_claim_blocks", moParams -> {
+            map.put("gd_remaining_claim_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getRemainingClaimBlocks());
             });
 
             // q.player.gd_max_claimable_blocks() returns an Integer
-            map.put("gd_max_claimable_blocks", moParams -> {
+            map.put("gd_max_claimable_blocks", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getMaxClaimableBlocks());
             });
 
             // q.player.gd_rental_limit() returns an Integer
-            map.put("gd_rental_limit", moParams -> {
+            map.put("gd_rental_limit", params -> {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getRentalLimit());
             });

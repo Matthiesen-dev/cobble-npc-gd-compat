@@ -10,6 +10,7 @@ import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClai
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 

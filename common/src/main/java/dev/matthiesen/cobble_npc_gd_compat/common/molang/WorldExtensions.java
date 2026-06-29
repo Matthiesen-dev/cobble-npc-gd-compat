@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 import net.minecraft.world.level.Level;
 
 import java.util.HashMap;
@@ -42,39 +43,39 @@ public final class WorldExtensions {
             map.put("gd_available_forsale", UniversalFunctions.getAvailableForSale(world));
 
             // q.world.gd_is_wilderness(x, y, z) returns 1 for true or 0
-            map.put("gd_is_wilderness", moParams -> {
-                var claim = getClaim(world, moParams);
+            map.put("gd_is_wilderness", params -> {
+                var claim = getClaim(world, params);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 return UniversalFunctions.intToDouble(claim.isWilderness() ? 1 : 0);
             });
 
             // q.world.gd_get_claim_uuid(x, y, z) returns string or 0
-            map.put("gd_get_claim_uuid", moParams -> {
-                var claim = getClaim(world, moParams);
+            map.put("gd_get_claim_uuid", params -> {
+                var claim = getClaim(world, params);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 var claimOwner = claim.getUUID();
                 return claimOwner != null ? new StringValue(claimOwner.toString()) : UniversalFunctions.isNull();
             });
 
             // q.world.gd_get_claim_name(x, y, z) returns string or 0
-            map.put("gd_get_claim_name", moParams -> {
-                var claim = getClaim(world, moParams);
+            map.put("gd_get_claim_name", params -> {
+                var claim = getClaim(world, params);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 var claimOwner = claim.getDisplayName();
                 return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();
             });
 
             // q.world.gd_get_claim_owner_uuid(x, y, z) returns string or 0
-            map.put("gd_get_claim_owner_uuid", moParams -> {
-                var claim = getClaim(world, moParams);
+            map.put("gd_get_claim_owner_uuid", params -> {
+                var claim = getClaim(world, params);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 var claimOwner = claim.getOwnerUUID();
                 return claimOwner != null ? new StringValue(claimOwner.toString()) : UniversalFunctions.isNull();
             });
 
             // q.world.gd_get_claim_owner_name(x, y, z) returns string or 0
-            map.put("gd_get_claim_owner_name", moParams -> {
-                var claim = getClaim(world, moParams);
+            map.put("gd_get_claim_owner_name", params -> {
+                var claim = getClaim(world, params);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 var claimOwner = claim.getOwnerName();
                 return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();

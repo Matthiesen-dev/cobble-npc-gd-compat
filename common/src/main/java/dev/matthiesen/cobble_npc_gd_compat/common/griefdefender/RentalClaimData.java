@@ -13,6 +13,8 @@ public record RentalClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
+        boolean isForRent,
+        boolean isRented,
         double rentalRate,
         String renter,
         String paymentType,
@@ -21,13 +23,15 @@ public record RentalClaimData(
 ) {
     public static RentalClaimData fromClaim(Claim claim) {
         var economyData = claim.getEconomyData();
+        boolean isForRent = claim.getEconomyData().isForRent();
+        boolean isRented = claim.getEconomyData().isRented();
         double rentalRate = 0.0;
         UUID renter = null;
         PaymentType paymentType = PaymentType.UNDEFINED;
         int rentMinTime = 0;
         int rentMaxTime = 0;
 
-        if (claim.getEconomyData().isForRent()) {
+        if (isForRent) {
             rentalRate = economyData.getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0;
             renter = economyData.getRenters().getFirst();
             paymentType = economyData.getPaymentType();
@@ -40,6 +44,8 @@ public record RentalClaimData(
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
+                isForRent,
+                isRented,
                 rentalRate,
                 renter != null ? renter.toString() : "n/a",
                 paymentTypeToString(paymentType),
@@ -70,6 +76,8 @@ public record RentalClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
+                "\"isForRent\": " + claimData.isForRent() +
+                "\"isRented\": " + claimData.isRented() +
                 "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +
                 "\"renter\": \"" + claimData.renter() + "\"" +
                 "\"paymentType\": \"" + claimData.paymentType() + "\"" +

@@ -6,7 +6,6 @@ import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.WorldExtensions;
 import dev.matthiesen.common.matthiesen_lib_api.abstracts.AbstractCommonMod;
 import dev.matthiesen.libs.faststats.Token;
-import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 public final class CobbleNPCGDCompat extends AbstractCommonMod {
@@ -39,9 +38,5 @@ public final class CobbleNPCGDCompat extends AbstractCommonMod {
     @Override
     public Runnable reload() {
         return () -> {};
-    }
-
-    public Player getPlayerFromUUID(String uuid) {
-        return PlayerExtensions.getPlayerFromUUID(uuid);
     }
 }

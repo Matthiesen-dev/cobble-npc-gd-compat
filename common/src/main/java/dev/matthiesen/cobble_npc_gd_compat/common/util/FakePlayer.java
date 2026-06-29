@@ -30,7 +30,7 @@ import net.minecraft.world.entity.player.Player;
 import java.util.Set;
 import java.util.UUID;
 
-public class FakePlayer extends ServerPlayer {
+public final class FakePlayer extends ServerPlayer {
     private static final GameProfile MINECRAFT = new GameProfile(UUID.fromString("41C82C87-7AfB-4024-BA57-13D2C99CAE77"), "[Minecraft]");
     private static final ClientInformation FAKE_CLIENT_INFO;
     private static final CommonListenerCookie COOKIE;

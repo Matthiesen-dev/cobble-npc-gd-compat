@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-public class GDUser implements User {
+public final class GDUser implements User {
     private String userName;
     private final String identifier;
     private final UUID uniqueId;

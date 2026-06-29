@@ -9,10 +9,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-public class FakePlayerFactory {
+public final class FakePlayerFactory {
     private static final GameProfile MINECRAFT = new GameProfile(UUID.fromString("41C82C87-7AFB-4024-BA57-13D2C99CAE77"), "[Minecraft]");
-    private static final ConcurrentMap<FakePlayerKey, FakePlayer> fakePlayers = new ConcurrentHashMap();
-    private static final ConcurrentMap<FakePlayerKey, CompletableFuture<FakePlayer>> pending = new ConcurrentHashMap();
+    private static final ConcurrentMap<FakePlayerKey, FakePlayer> fakePlayers = new ConcurrentHashMap<>();
+    private static final ConcurrentMap<FakePlayerKey, CompletableFuture<FakePlayer>> pending = new ConcurrentHashMap<>();
 
     private FakePlayerFactory() {
     }
@@ -30,8 +30,8 @@ public class FakePlayerFactory {
         } else if (server.isSameThread()) {
             return (FakePlayer)fakePlayers.computeIfAbsent(key, (k) -> new FakePlayer(level, profile));
         } else {
-            CompletableFuture<FakePlayer> future = (CompletableFuture)pending.computeIfAbsent(key, (k) -> {
-                CompletableFuture<FakePlayer> f = new CompletableFuture();
+            CompletableFuture<FakePlayer> future = pending.computeIfAbsent(key, (k) -> {
+                CompletableFuture<FakePlayer> f = new CompletableFuture<>();
                 server.execute(() -> {
                     try {
                         FakePlayer fp = (FakePlayer)fakePlayers.computeIfAbsent(key, (kk) -> new FakePlayer(level, profile));
@@ -43,7 +43,7 @@ public class FakePlayerFactory {
                 });
                 return f;
             });
-            return (FakePlayer)future.join();
+            return future.join();
         }
     }
 

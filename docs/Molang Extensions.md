@@ -5,6 +5,7 @@ This document lists the Molang extension functions added by `cobble-npc-gd-compa
 ## Table of Contents
 
 - [General Notes](#general-notes)
+- [Data Shapes](#data-shapes)
 - [Universal Functions](#universal-functions)
 - [NPC Functions](#npc-functions)
 - [Player Functions](#player-functions)
@@ -15,8 +16,42 @@ This document lists the Molang extension functions added by `cobble-npc-gd-compa
 ## General Notes
 
 - Boolean-style functions return `1` for true and `0` for false.
-- Some functions return strings, integers, or arrays of objects depending on the lookup.
+- Numeric values are exposed as Molang numbers.
 - Claim lookup functions generally return `0` when nothing is found.
+
+## Data Shapes
+
+These object formats are reused by multiple functions.
+
+### `SimpleClaimData`
+
+- `uuid`
+- `displayName`
+- `ownerUUID`
+- `ownerName`
+
+### `RentalClaimData`
+
+- `uuid`
+- `displayName`
+- `ownerUUID`
+- `ownerName`
+- `isForRent`
+- `isRented`
+- `rentalRate`
+- `renter`
+- `paymentType`
+- `rentMinTime`
+- `rentMaxTime`
+
+### `ForSaleClaimData`
+
+- `uuid`
+- `displayName`
+- `ownerUUID`
+- `ownerName`
+- `isForSale`
+- `salePrice`
 
 ## Universal Functions
 
@@ -31,12 +66,7 @@ These functions are available in multiple Molang contexts.
 
 - Available on: `q.npc`, `q.server`, `q.world`
 - Argument: player UUID
-- Returns: an array of claims for the player
-- Claim object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
+- Returns: an array of `SimpleClaimData`
 
 ## NPC Functions
 
@@ -48,12 +78,7 @@ These functions are available on `q.npc`.
 
 ### `gd_claim_data()`
 
-- Returns: claim data for the NPC's current location, or `0` if none exists
-- Claim object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
+- Returns: `SimpleClaimData` for the NPC's current location, or `0` if none exists
 
 ### `gd_claim_uuid()`
 
@@ -73,23 +98,19 @@ These functions are available on `q.npc`.
 
 ### `gd_available_rentals()`
 
-- Returns: an array of available rentals
-- Rental object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
-  - `rentalRate`
+- Returns: an array of `RentalClaimData`
+
+### `gd_available_forsale()`
+
+- Returns: an array of `ForSaleClaimData`
 
 ### `gd_claim_rental_data()`
 
-- Returns: claim info and rental rate for the NPC's current location, or `0` if none exists
-- Rental object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
-  - `rentalRate`
+- Returns: `RentalClaimData` for the NPC's current location, or `0` if none exists
+
+### `gd_claim_sale_data()`
+
+- Returns: `ForSaleClaimData` for the NPC's current location, or `0` if none exists
 
 ## Player Functions
 
@@ -97,12 +118,7 @@ These functions are available on `q.player`.
 
 ### `gd_claims()`
 
-- Returns: an array of claims for the player
-- Claim object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
+- Returns: an array of `SimpleClaimData` for the active player
 
 ### `gd_current_claim()`
 
@@ -154,13 +170,11 @@ These functions are available on `q.player`.
 
 ### `gd_available_rentals()`
 
-- Returns: an array of available rentals
-- Rental object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
-  - `rentalRate`
+- Returns: an array of `RentalClaimData`
+
+### `gd_available_forsale()`
+
+- Returns: an array of `ForSaleClaimData`
 
 ## Server Functions
 
@@ -169,7 +183,7 @@ These functions are available on `q.server`.
 ### `gd_get_player_claims(<uuid>)`
 
 - Argument: player UUID
-- Returns: an array of claims for the player
+- Returns: an array of `SimpleClaimData`
 
 ## World Functions
 
@@ -202,13 +216,11 @@ These functions are available on `q.world`.
 
 ### `gd_available_rentals()`
 
-- Returns: an array of available rentals
-- Rental object format:
-  - `uuid`
-  - `displayName`
-  - `ownerUUID`
-  - `ownerName`
-  - `rentalRate`
+- Returns: an array of `RentalClaimData`
+
+### `gd_available_forsale()`
+
+- Returns: an array of `ForSaleClaimData`
 
 ## Example Usage
 
@@ -218,5 +230,8 @@ q.world.gd_is_wilderness(0, 64, 0)
 q.npc.gd_claim_data()
 q.npc.gd_claim_owner_name()
 q.npc.gd_claim_rental_data()
+q.npc.gd_claim_sale_data()
+q.player.gd_available_forsale()
+q.world.gd_available_forsale()
 ```
 

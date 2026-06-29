@@ -11,7 +11,7 @@ public record ForSaleClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
-        String blockPos,
+        String spawnPos,
         boolean isForSale,
         double salePrice
 ) {
@@ -50,7 +50,7 @@ public record ForSaleClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
-                "\"blockPos\": \"" + claimData.blockPos() + "\"" +
+                "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
                 "\"isForSale\": " + claimData.isForSale() + ", " +
                 "\"salePrice\": " + claimData.salePrice() +
                 "}";

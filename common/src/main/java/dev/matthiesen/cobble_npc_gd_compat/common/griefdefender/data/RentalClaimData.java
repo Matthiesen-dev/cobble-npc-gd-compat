@@ -14,7 +14,7 @@ public record RentalClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
-        String blockPos,
+        String spawnPos,
         boolean isForRent,
         boolean isRented,
         double rentalRate,
@@ -85,7 +85,7 @@ public record RentalClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
-                "\"blockPos\": \"" + claimData.blockPos() + "\"" +
+                "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
                 "\"isForRent\": " + claimData.isForRent() +
                 "\"isRented\": " + claimData.isRented() +
                 "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +

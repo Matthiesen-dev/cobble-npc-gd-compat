@@ -11,7 +11,7 @@ public record SimpleClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
-        String blockPos
+        String spawnPos
 ) {
     public static SimpleClaimData fromGDLocation(GDLocation location) {
         Claim claim = location.getClaim();
@@ -42,7 +42,7 @@ public record SimpleClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
-                "\"blockPos\": \"" + claimData.blockPos() + "\"" +
+                "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
                 "}";
     }
 

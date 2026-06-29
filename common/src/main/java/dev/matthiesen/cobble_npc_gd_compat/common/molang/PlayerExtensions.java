@@ -59,11 +59,11 @@ public final class PlayerExtensions {
             // q.player.gd_rental_limit() returns an Integer
             map.put("gd_rental_limit", PlayerFunctions.getRentalLimit(player));
 
-            // q.npc.gd_available_rentals() returns array of claims in the following format
+            // q.player.gd_available_rentals() returns array of claims in the following format
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double } ]
             map.put("gd_available_rentals", PlayerFunctions.getAvailableRentals(player));
 
-            // q.npc.gd_available_forsale() returns array of claims in the following format
+            // q.player.gd_available_forsale() returns array of claims in the following format
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "isForSale": false, "salePrice": double } ]
             map.put("gd_available_forsale", PlayerFunctions.getAvailableForSale(player));
 

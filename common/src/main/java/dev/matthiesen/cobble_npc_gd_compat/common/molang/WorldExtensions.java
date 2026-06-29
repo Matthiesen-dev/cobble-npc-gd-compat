@@ -39,11 +39,11 @@ public final class WorldExtensions {
             // q.world.gd_get_claim_owner_name(x, y, z) returns string or 0
             map.put("gd_get_claim_owner_name", WorldFunctions.getClaimOwnerName(world));
 
-            // q.npc.gd_available_rentals() returns array of claims in the following format
+            // q.world.gd_available_rentals() returns array of claims in the following format
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double } ]
             map.put("gd_available_rentals", WorldFunctions.getAvailableRentals(world));
 
-            // q.npc.gd_available_forsale() returns array of claims in the following format
+            // q.world.gd_available_forsale() returns array of claims in the following format
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "isForSale": false, "salePrice": double } ]
             map.put("gd_available_forsale", WorldFunctions.getAvailableForSale(world));
 

@@ -6,14 +6,28 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public record RentalClaimData(String uuid, String displayName, String ownerUUID, String ownerName, double rentalRate) {
+public record RentalClaimData(
+        String uuid,
+        String displayName,
+        String ownerUUID,
+        String ownerName,
+        double rentalRate
+) {
     public static RentalClaimData fromClaim(Claim claim) {
+        var economyData = claim.getEconomyData();
+        double rentalRate = 0.0;
+
+        if (claim.getEconomyData().isForRent()) {
+            rentalRate = claim.getEconomyData().getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0;
+//            var renter = claim.getEconomyData().
+        }
+
         return new RentalClaimData(
                 claim.getUniqueId().toString(),
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
-                claim.getEconomyData().isForRent() && claim.getEconomyData().getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0
+                rentalRate
         );
     }
 

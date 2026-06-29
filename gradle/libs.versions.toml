@@ -16,6 +16,10 @@ matthiesen_lib = "1.9.1"
 sponge-mixin = "0.8.5"
 griefdefender-api = "2.1.1-SNAPSHOT"
 
+adventure-key = "4.13.0"
+impactor-fabric = "5.3.5+1.21.1-Fabric-fabric,1.21.1"
+impactor-neoforge = "5.3.5+1.21.1-Neoforge-neoforge,1.21.1"
+
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 architectury-loom = { id = "dev.architectury.loom", version.ref = "architectury-loom" }
@@ -45,9 +49,13 @@ matthiesen-lib-api-neoforge = { group = "dev.matthiesen", name = "matthiesen-lib
 sponge-mixin = { group = "org.spongepowered", name = "mixin", version.ref = "sponge-mixin" }
 griefdefender-api = { group = "com.griefdefender", name = "api", version.ref = "griefdefender-api" }
 
+adventure-key = { group = "net.kyori", name = "adventure-key", version.ref = "adventure-key" }
+impactor-fabric = { group = "maven.modrinth", name = "impactor", version.ref = "impactor-fabric" }
+impactor-neoforge = { group = "maven.modrinth", name = "impactor", version.ref = "impactor-neoforge" }
+
 [bundles]
-commonCompileOnly = ["sponge-mixin", "griefdefender-api"]
-commonImplementation = []
+commonCompileOnly = ["sponge-mixin", "griefdefender-api", "impactor-fabric"]
+commonImplementation = ["adventure-key"]
 commonModImplementation = ["cobblemon-common", "matthiesen-lib-api-common"]
 fabricModImplementation = ["fabric-loader", "fabric-api", "fabric-language-kotlin"]
 fabricModImplementationNoTransitive = ["cobblemon-fabric", "matthiesen-lib-api-fabric"]

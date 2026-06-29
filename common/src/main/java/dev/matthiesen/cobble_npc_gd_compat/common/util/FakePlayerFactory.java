@@ -24,17 +24,17 @@ public final class FakePlayerFactory {
     public static FakePlayer get(ServerLevel level, GameProfile profile) {
         MinecraftServer server = level.getServer();
         FakePlayerKey key = new FakePlayerKey(level.dimension().location().hashCode(), profile.getId());
-        FakePlayer cached = (FakePlayer)fakePlayers.get(key);
+        FakePlayer cached = fakePlayers.get(key);
         if (cached != null) {
             return cached;
         } else if (server.isSameThread()) {
-            return (FakePlayer)fakePlayers.computeIfAbsent(key, (k) -> new FakePlayer(level, profile));
+            return fakePlayers.computeIfAbsent(key, (k) -> new FakePlayer(level, profile));
         } else {
             CompletableFuture<FakePlayer> future = pending.computeIfAbsent(key, (k) -> {
                 CompletableFuture<FakePlayer> f = new CompletableFuture<>();
                 server.execute(() -> {
                     try {
-                        FakePlayer fp = (FakePlayer)fakePlayers.computeIfAbsent(key, (kk) -> new FakePlayer(level, profile));
+                        FakePlayer fp = fakePlayers.computeIfAbsent(key, (kk) -> new FakePlayer(level, profile));
                         f.complete(fp);
                     } finally {
                         pending.remove(key);

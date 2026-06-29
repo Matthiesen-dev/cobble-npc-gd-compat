@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public class EcoProvider {
+public final class EcoProvider {
     private EconomyService vaultApi;
 
     public EcoProvider() {

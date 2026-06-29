@@ -1,8 +1,9 @@
-package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
+package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data;
 
 import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.economy.PaymentType;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUser;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -21,6 +22,12 @@ public record RentalClaimData(
         int rentMinTime,
         int rentMaxTime
 ) {
+    public static RentalClaimData fromGDLocation(GDLocation location) {
+        Claim claim = location.getClaim();
+        if (claim == null) return null;
+        return fromClaim(claim);
+    }
+
     public static RentalClaimData fromClaim(Claim claim) {
         var economyData = claim.getEconomyData();
         boolean isForRent = claim.getEconomyData().isForRent();
@@ -47,7 +54,7 @@ public record RentalClaimData(
                 isForRent,
                 isRented,
                 rentalRate,
-                renter != null ? renter.toString() : "n/a",
+                renter != null ? new GDUser(renter).getFriendlyName() : "not available",
                 paymentTypeToString(paymentType),
                 rentMinTime,
                 rentMaxTime
@@ -62,12 +69,6 @@ public record RentalClaimData(
             case WEEKLY -> "weekly";
             case MONTHLY -> "monthly";
         };
-    }
-
-    public static RentalClaimData fromGDLocation(GDLocation location) {
-        Claim claim = location.getClaim();
-        if (claim == null) return null;
-        return fromClaim(claim);
     }
 
     public static String makeString(RentalClaimData claimData) {

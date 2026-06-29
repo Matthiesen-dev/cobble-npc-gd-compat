@@ -4,6 +4,10 @@ import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.*;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
@@ -21,8 +25,16 @@ public final class NPCFunctions {
     public static Function<MoParams, Object> getAvailableRentals(NPCEntity npcEntity) {
         return params -> {
             Level level = npcEntity.getCommandSenderWorld();
-            List<RentalClaimData> rentals = GDRentals.getRentals(level);
+            List<RentalClaimData> rentals = GDCollectors.getRentals(level);
             return RentalClaimData.asMolangValueFromList(rentals);
+        };
+    }
+
+    public static Function<MoParams, Object> getAvailableForSale(NPCEntity npcEntity) {
+        return params -> {
+            Level level = npcEntity.getCommandSenderWorld();
+            List<ForSaleClaimData> forSale = GDCollectors.getForSale(level);
+            return ForSaleClaimData.asMolangValueFromList(forSale);
         };
     }
 
@@ -77,6 +89,15 @@ public final class NPCFunctions {
             if (claim.getClaim() == null) return UniversalFunctions.isNull();
             var claimOwner = claim.getOwnerName();
             return claimOwner != null ? new StringValue(claimOwner) : UniversalFunctions.isNull();
+        };
+    }
+
+    public static Function<MoParams, Object> standingClaimSaleData(NPCEntity npcEntity) {
+        return params -> {
+            var claim = getClaim(npcEntity);
+            if (claim.getClaim() == null) return UniversalFunctions.isNull();
+            ForSaleClaimData claimData = ForSaleClaimData.fromGDLocation(claim);
+            return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
         };
     }
 }

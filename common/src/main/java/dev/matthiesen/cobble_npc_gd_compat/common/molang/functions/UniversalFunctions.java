@@ -3,7 +3,7 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.DoubleValue;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
 
 import java.util.List;
 import java.util.UUID;

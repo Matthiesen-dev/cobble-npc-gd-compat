@@ -1,4 +1,4 @@
-package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
+package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data;
 
 import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.claim.Claim;
@@ -6,7 +6,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public record SimpleClaimData(String uuid, String displayName, String ownerUUID, String ownerName) {
+public record SimpleClaimData(
+        String uuid,
+        String displayName,
+        String ownerUUID,
+        String ownerName
+) {
+    public static SimpleClaimData fromGDLocation(GDLocation location) {
+        Claim claim = location.getClaim();
+        if (claim == null) return null;
+        return fromClaim(claim);
+    }
+
     public static SimpleClaimData fromClaim(Claim claim) {
         return new SimpleClaimData(
                 claim.getUniqueId().toString(),
@@ -14,12 +25,6 @@ public record SimpleClaimData(String uuid, String displayName, String ownerUUID,
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName()
         );
-    }
-
-    public static SimpleClaimData fromGDLocation(GDLocation location) {
-        Claim claim = location.getClaim();
-        if (claim == null) return null;
-        return fromClaim(claim);
     }
 
     public static String makeString(SimpleClaimData claimData) {

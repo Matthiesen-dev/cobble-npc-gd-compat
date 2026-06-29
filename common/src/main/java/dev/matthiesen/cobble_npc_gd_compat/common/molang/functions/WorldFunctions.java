@@ -2,10 +2,11 @@ package dev.matthiesen.cobble_npc_gd_compat.common.molang.functions;
 
 import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.StringValue;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDRentals;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDCollectors;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.RentalClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -21,8 +22,15 @@ public final class WorldFunctions {
 
     public static Function<MoParams, Object> getAvailableRentals(Level level) {
         return params -> {
-            List<RentalClaimData> rentals = GDRentals.getRentals(level);
+            List<RentalClaimData> rentals = GDCollectors.getRentals(level);
             return RentalClaimData.asMolangValueFromList(rentals);
+        };
+    }
+
+    public static Function<MoParams, Object> getAvailableForSale(Level level) {
+        return params -> {
+            List<ForSaleClaimData> forSale = GDCollectors.getForSale(level);
+            return ForSaleClaimData.asMolangValueFromList(forSale);
         };
     }
 

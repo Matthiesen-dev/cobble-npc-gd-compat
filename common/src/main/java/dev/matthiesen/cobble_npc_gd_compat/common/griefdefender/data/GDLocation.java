@@ -1,6 +1,7 @@
-package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
+package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data;
 
 import com.griefdefender.api.claim.Claim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 

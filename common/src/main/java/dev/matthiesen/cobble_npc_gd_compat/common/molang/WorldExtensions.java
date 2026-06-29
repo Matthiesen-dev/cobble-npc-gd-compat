@@ -43,6 +43,10 @@ public final class WorldExtensions {
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double } ]
             map.put("gd_available_rentals", WorldFunctions.getAvailableRentals(world));
 
+            // q.npc.gd_available_forsale() returns array of claims in the following format
+            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "isForSale": false, "salePrice": double } ]
+            map.put("gd_available_forsale", WorldFunctions.getAvailableForSale(world));
+
             return map;
         });
     }

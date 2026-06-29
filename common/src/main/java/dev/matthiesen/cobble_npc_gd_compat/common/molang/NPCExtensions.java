@@ -43,12 +43,20 @@ public final class NPCExtensions {
             map.put("gd_claim_owner_name", NPCFunctions.standingClaimOwnerName(npcEntity));
 
             // q.npc.gd_available_rentals() returns array of claims in the following format
-            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double } ]
+            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double, "isForRent": false, "isRented": false, "renter": "string", "paymentType": "string", "rentMinTime": 0, "rentMaxTime": 0 } ]
             map.put("gd_available_rentals", NPCFunctions.getAvailableRentals(npcEntity));
 
             // q.npc.gd_claim_rental_data() returns object containing claim info and rental rate in the following format
-            // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double }
+            // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double, "isForRent": false, "isRented": false, "renter": "string", "paymentType": "string", "rentMinTime": 0, "rentMaxTime": 0 }
             map.put("gd_claim_rental_data", NPCFunctions.getStandingRental(npcEntity));
+
+            // q.npc.gd_available_forsale() returns array of claims in the following format
+            // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "isForSale": false, "salePrice": double } ]
+            map.put("gd_available_forsale", NPCFunctions.getAvailableForSale(npcEntity));
+
+            // q.npc.gd_claim_sale_data() returns object containing claim info and sale data in the following format
+            // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "isForSale": false, "salePrice": double }
+            map.put("gd_claim_sale_data", NPCFunctions.standingClaimSaleData(npcEntity));
 
             return map;
         });

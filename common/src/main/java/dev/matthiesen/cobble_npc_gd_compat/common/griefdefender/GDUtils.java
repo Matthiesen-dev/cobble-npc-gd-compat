@@ -4,6 +4,8 @@ import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.data.PlayerData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
 import net.minecraft.world.level.Level;
 
 import java.util.List;

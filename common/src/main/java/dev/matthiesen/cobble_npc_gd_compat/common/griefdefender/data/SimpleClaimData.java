@@ -10,7 +10,8 @@ public record SimpleClaimData(
         String uuid,
         String displayName,
         String ownerUUID,
-        String ownerName
+        String ownerName,
+        String blockPos
 ) {
     public static SimpleClaimData fromGDLocation(GDLocation location) {
         Claim claim = location.getClaim();
@@ -19,11 +20,19 @@ public record SimpleClaimData(
     }
 
     public static SimpleClaimData fromClaim(Claim claim) {
+        String blockPos = "unknown";
+
+        var spawnPos = claim.getData().getSpawnPos();
+        if (spawnPos != null) {
+            blockPos = spawnPos.getX() + " " + spawnPos.getY() + " " + spawnPos.getZ();
+        }
+
         return new SimpleClaimData(
                 claim.getUniqueId().toString(),
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
-                claim.getOwnerName()
+                claim.getOwnerName(),
+                blockPos
         );
     }
 
@@ -33,6 +42,7 @@ public record SimpleClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
+                "\"blockPos\": \"" + claimData.blockPos() + "\"" +
                 "}";
     }
 

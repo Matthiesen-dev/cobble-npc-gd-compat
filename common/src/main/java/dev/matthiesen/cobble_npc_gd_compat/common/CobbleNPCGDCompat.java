@@ -1,5 +1,6 @@
 package dev.matthiesen.cobble_npc_gd_compat.common;
 
+import dev.matthiesen.cobble_npc_gd_compat.common.impactor.EcoProvider;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.NPCExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.PlayerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
@@ -38,5 +39,14 @@ public final class CobbleNPCGDCompat extends AbstractCommonMod {
     @Override
     public Runnable reload() {
         return () -> {};
+    }
+
+    public EcoProvider ECO_PROVIDER_INSTANCE;
+
+    public EcoProvider getEcoProvider() {
+        if (ECO_PROVIDER_INSTANCE == null) {
+            ECO_PROVIDER_INSTANCE = new EcoProvider();
+        }
+        return ECO_PROVIDER_INSTANCE;
     }
 }

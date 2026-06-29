@@ -14,6 +14,7 @@ public record RentalClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
+        String blockPos,
         boolean isForRent,
         boolean isRented,
         double rentalRate,
@@ -45,12 +46,19 @@ public record RentalClaimData(
             rentMinTime = economyData.getRentMinTime();
             rentMaxTime = economyData.getRentMaxTime();
         }
+        String blockPos = "unknown";
+
+        var spawnPos = claim.getData().getSpawnPos();
+        if (spawnPos != null) {
+            blockPos = spawnPos.getX() + " " + spawnPos.getY() + " " + spawnPos.getZ();
+        }
 
         return new RentalClaimData(
                 claim.getUniqueId().toString(),
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
+                blockPos,
                 isForRent,
                 isRented,
                 rentalRate,
@@ -77,6 +85,7 @@ public record RentalClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
+                "\"blockPos\": \"" + claimData.blockPos() + "\"" +
                 "\"isForRent\": " + claimData.isForRent() +
                 "\"isRented\": " + claimData.isRented() +
                 "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +

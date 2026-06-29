@@ -2,24 +2,31 @@ package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.claim.Claim;
+import com.griefdefender.api.economy.PaymentType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 public record RentalClaimData(
         String uuid,
         String displayName,
         String ownerUUID,
         String ownerName,
-        double rentalRate
+        double rentalRate,
+        String renter,
+        String paymentType
 ) {
     public static RentalClaimData fromClaim(Claim claim) {
         var economyData = claim.getEconomyData();
         double rentalRate = 0.0;
+        UUID renter = null;
+        PaymentType paymentType = PaymentType.UNDEFINED;
 
         if (claim.getEconomyData().isForRent()) {
-            rentalRate = claim.getEconomyData().getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0;
-//            var renter = claim.getEconomyData().
+            rentalRate = economyData.getRentRate() > (double) -1.0F ? claim.getEconomyData().getRentRate() : 0.0;
+            renter = economyData.getRenters().getFirst();
+            paymentType = economyData.getPaymentType();
         }
 
         return new RentalClaimData(
@@ -27,8 +34,20 @@ public record RentalClaimData(
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
-                rentalRate
+                rentalRate,
+                renter != null ? renter.toString() : "n/a",
+                paymentTypeToString(paymentType)
         );
+    }
+
+    public static String paymentTypeToString(PaymentType paymentType) {
+        return switch (paymentType) {
+            case UNDEFINED -> "undefined";
+            case DAILY -> "daily";
+            case HOURLY -> "hourly";
+            case WEEKLY -> "weekly";
+            case MONTHLY -> "monthly";
+        };
     }
 
     public static RentalClaimData fromGDLocation(GDLocation location) {
@@ -44,6 +63,8 @@ public record RentalClaimData(
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
                 "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +
+                "\"renter\": \"" + claimData.renter() + "\"" +
+                "\"paymentType\": \"" + claimData.paymentType() + "\"" +
                 "}";
     }
 

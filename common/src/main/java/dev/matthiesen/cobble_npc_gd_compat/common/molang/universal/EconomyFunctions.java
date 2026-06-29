@@ -182,6 +182,10 @@ public final class EconomyFunctions {
 
     public static Function<MoParams, Object> rentClaim(Player player) {
         return params -> {
+            String claimUUIDString = params.getString(0);
+            UUID claimUUID = UUID.fromString(claimUUIDString);
+            GDLocation claim = GDLocation.fromUUID(claimUUID);
+
             return 1;
         };
     }

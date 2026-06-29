@@ -118,7 +118,8 @@ public final class PlayerExtensions {
 
 
             // q.player.gd_start_rental(<claimUUID>) returns 1 for success or 0
-            map.put("gd_start_rental", EconomyFunctions.rentClaim(player));
+            // TODO: Rental system is more annoying to ensure will work correctly, leaving this for now as a later task
+//            map.put("gd_start_rental", EconomyFunctions.rentClaim(player));
 
             return map;
         });

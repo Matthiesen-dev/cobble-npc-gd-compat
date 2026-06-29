@@ -1,10 +1,8 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.molang.universal;
 
 import com.bedrockk.molang.runtime.MoParams;
-import com.griefdefender.api.claim.Claim;
-import com.griefdefender.api.claim.ClaimResult;
-import com.griefdefender.api.claim.ClaimType;
-import com.griefdefender.api.claim.ClaimTypes;
+import com.griefdefender.api.claim.*;
+import com.griefdefender.api.economy.PaymentType;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUser;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
@@ -14,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -24,6 +23,14 @@ public final class EconomyFunctions {
 
     public static String claimNotForSale(String claimUUIDString) {
         return "Claim with UUID " + claimUUIDString + " is not for sale. Please contact an administrator.";
+    }
+
+    public static String claimNotForRent(String claimUUIDString) {
+        return "Claim with UUID " + claimUUIDString + " is not for rent. Please contact an administrator.";
+    }
+
+    public static String claimAlreadyRented(String claimUUIDString) {
+        return "Claim with UUID " + claimUUIDString + " is already rented. Please contact an administrator.";
     }
 
     public static String claimMissingOwner(String claimUUIDString) {
@@ -42,8 +49,24 @@ public final class EconomyFunctions {
         return "You do not have enough funds to purchase this claim. You need " + amount + " more.";
     }
 
+    public static String notEnoughFundsRent(double amount) {
+        return "You do not have enough funds to rent this claim. You need " + amount + " more.";
+    }
+
+    public static String delinquentRenter() {
+        return "You have delinquent rent payments. Please contact an administrator.";
+    }
+
     public static String failedToTransfer(String string) {
         return "Failed to transfer " + string + ". Please contact an administrator.";
+    }
+
+    public static String noRentalLimit() {
+        return "You do not have a rental limit set. Please contact an administrator.";
+    }
+
+    public static String claimOwnerNotFound(String claimUUIDString) {
+        return "Claim with UUID " + claimUUIDString + " has an owner that could not be found. Please contact an administrator.";
     }
 
     public static Function<MoParams, Object> purchaseClaim(Player player) {
@@ -185,8 +208,19 @@ public final class EconomyFunctions {
             String claimUUIDString = params.getString(0);
             UUID claimUUID = UUID.fromString(claimUUIDString);
             GDLocation claim = GDLocation.fromUUID(claimUUID);
-
             return 1;
         };
+    }
+
+    public static ChronoUnit getPaymentChronoUnit(PaymentType type) {
+        ChronoUnit unit = ChronoUnit.DAYS;
+        if (type == PaymentType.HOURLY) {
+            unit = ChronoUnit.HOURS;
+        } else if (type == PaymentType.MONTHLY) {
+            unit = ChronoUnit.MONTHS;
+        } else if (type == PaymentType.WEEKLY) {
+            unit = ChronoUnit.WEEKS;
+        }
+        return unit;
     }
 }

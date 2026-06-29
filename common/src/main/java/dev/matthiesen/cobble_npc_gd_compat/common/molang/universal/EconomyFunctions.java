@@ -69,85 +69,93 @@ public final class EconomyFunctions {
         return "Claim with UUID " + claimUUIDString + " has an owner that could not be found. Please contact an administrator.";
     }
 
+    public static <T> boolean isNull(T result, Player player, Component errorMessage) {
+        if (result == null) {
+            player.sendSystemMessage(errorMessage.copy().withStyle(ChatFormatting.RED));
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isFalse(boolean condition, Player player, Component errorMessage) {
+        if (!condition) {
+            player.sendSystemMessage(errorMessage.copy().withStyle(ChatFormatting.RED));
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isFalse(boolean condition, Player player, Component errorMessage, Runnable callback) {
+        if (!condition) {
+            callback.run();
+            player.sendSystemMessage(errorMessage.copy().withStyle(ChatFormatting.RED));
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isTrue(boolean condition, Player player, Component errorMessage) {
+        if (condition) {
+            player.sendSystemMessage(errorMessage.copy().withStyle(ChatFormatting.RED));
+            return true;
+        }
+        return false;
+    }
+
+    public static void sendPlayerMsgIfNotNull(Player player, Component component) {
+        if (player != null) {
+            player.sendSystemMessage(component);
+        }
+    }
+
     public static Function<MoParams, Object> purchaseClaim(Player player) {
         return params -> {
             String claimUUIDString = params.getString(0);
             UUID claimUUID = UUID.fromString(claimUUIDString);
             GDLocation claim = GDLocation.fromUUID(claimUUID);
-
-            if (claim == null) {
-                player.sendSystemMessage(
-                        Component.literal(claimNotFound(claimUUIDString))
-                                .withStyle(ChatFormatting.RED)
-                );
+            if (isNull(claim, player, Component.literal(claimNotFound(claimUUIDString)))) {
                 return 0;
             }
+            assert claim != null;
 
             ForSaleClaimData claimData = ForSaleClaimData.fromGDLocation(claim);
-
-            if (claimData == null) {
-                player.sendSystemMessage(
-                        Component.literal(claimNotForSale(claimUUIDString))
-                                .withStyle(ChatFormatting.RED)
-                );
+            if (isNull(claimData, player, Component.literal(claimNotForSale(claimUUIDString)))) {
                 return 0;
             }
+            assert claimData != null;
 
-            if (!claimData.isForSale()) {
-                player.sendSystemMessage(
-                        Component.literal(claimNotForSale(claimUUIDString))
-                                .withStyle(ChatFormatting.RED)
-                );
-                return 0;
-            }
-
-            if (player.getUUID().toString().equalsIgnoreCase(claimData.ownerUUID())) {
-                player.sendSystemMessage(
-                        Component.literal(cannotPurchaseOwnClaim())
-                                .withStyle(ChatFormatting.RED)
-                );
-                return 0;
-            }
-
-            EcoProvider ecoProvider = CobbleNPCGDCompat.INSTANCE.getEcoProvider();
-
-            if (!ecoProvider.hasAccount(player)) {
-                player.sendSystemMessage(
-                        Component.literal(economyAccountError())
-                                .withStyle(ChatFormatting.RED)
-                );
-                return 0;
-            }
-
-            double balance = ecoProvider.getBalance(player);
-
-            if (balance < claimData.salePrice()) {
-                player.sendSystemMessage(
-                        Component.literal(notEnoughFundsPurchase(claimData.salePrice() - balance))
-                                .withStyle(ChatFormatting.RED)
-                );
-                return 0;
-            }
-
-            if (claim.getOwnerUUID() == null) {
-                player.sendSystemMessage(
-                        Component.literal(claimMissingOwner(claimUUIDString))
-                                .withStyle(ChatFormatting.RED)
-                );
+            if (isNull(claim.getOwnerUUID(), player, Component.literal(claimMissingOwner(claimUUIDString)))) {
                 return 0;
             }
 
             GDUser owner = new GDUser(claim.getOwnerUUID());
 
-            Claim gdClaim = claim.getClaim();
-
-            if (gdClaim == null) {
-                player.sendSystemMessage(
-                        Component.literal(claimNotFound(claimUUIDString))
-                                .withStyle(ChatFormatting.RED)
-                );
+            if (isFalse(claimData.isForSale(), player, Component.literal(claimNotForSale(claimUUIDString)))) {
                 return 0;
             }
+
+            if (isTrue(player.getUUID().toString().equalsIgnoreCase(claimData.ownerUUID()), player, Component.literal(cannotPurchaseOwnClaim()))) {
+                return 0;
+            }
+
+            EcoProvider ecoProvider = CobbleNPCGDCompat.INSTANCE.getEcoProvider();
+
+            if (isFalse(ecoProvider.hasAccount(player), player, Component.literal(economyAccountError()))) {
+                return 0;
+            }
+
+            double balance = ecoProvider.getBalance(player);
+
+            if (isTrue(balance < claimData.salePrice(), player, Component.literal(notEnoughFundsPurchase(claimData.salePrice() - balance)))) {
+                return 0;
+            }
+
+            Claim gdClaim = claim.getClaim();
+
+            if (isNull(gdClaim, player, Component.literal(claimNotFound(claimUUIDString)))) {
+                return 0;
+            }
+            assert gdClaim != null;
 
             ClaimType originalType = gdClaim.getType();
 
@@ -157,26 +165,19 @@ public final class EconomyFunctions {
 
             ClaimResult result = gdClaim.transferOwner(player.getUUID());
 
-            if (!result.successful()) {
+            if (isFalse(result.successful(), player, Component.literal(failedToTransfer("claim ownership")), () -> {
                 gdClaim.getData().setType(originalType);
-                player.sendSystemMessage(
-                        Component.literal(failedToTransfer("claim ownership"))
-                                .withStyle(ChatFormatting.RED)
-                );
+            })) {
                 return 0;
             }
 
             double salePrice = claimData.salePrice();
-
             boolean transactionSuccess = owner.getOfflinePlayer() == null || ecoProvider.depositPlayer(owner.getOfflinePlayer(), salePrice);
 
-            if (!transactionSuccess) {
+            if (isFalse(transactionSuccess, player, Component.literal(failedToTransfer("funds")), () -> {
                 gdClaim.getData().setType(originalType);
                 gdClaim.transferOwner(UUID.fromString(claimData.ownerUUID()));
-                player.sendSystemMessage(
-                        Component.literal(failedToTransfer("funds"))
-                                .withStyle(ChatFormatting.RED)
-                );
+            })) {
                 return 0;
             }
 
@@ -189,9 +190,7 @@ public final class EconomyFunctions {
 
             var ownerPlayer = owner.getOnlinePlayer();
 
-            if (ownerPlayer != null) {
-                ownerPlayer.sendSystemMessage(saleMessage);
-            }
+            sendPlayerMsgIfNotNull(ownerPlayer, saleMessage);
 
             gdClaim.getEconomyData().setForSale(false);
             gdClaim.getEconomyData().setSalePrice(0.0F);

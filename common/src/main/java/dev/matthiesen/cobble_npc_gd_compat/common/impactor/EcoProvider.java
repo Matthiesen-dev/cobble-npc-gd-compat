@@ -27,7 +27,7 @@ public class EcoProvider {
     }
 
     private void initEconomy() {
-        this.vaultApi = (EconomyService) Impactor.instance().services().provide(EconomyService.class);
+        this.vaultApi = Impactor.instance().services().provide(EconomyService.class);
     }
 
     public boolean hasAccount(Player player) {
@@ -35,7 +35,7 @@ public class EcoProvider {
             return false;
         } else {
             try {
-                return (Boolean)this.vaultApi.hasAccount(player.getUUID()).get();
+                return this.vaultApi.hasAccount(player.getUUID()).get();
             } catch (Throwable var3) {
                 return false;
             }
@@ -48,10 +48,10 @@ public class EcoProvider {
 
     public double getBalance(UUID uuid, boolean isPlayer) {
         if (this.getApi() == null) {
-            return (double)0.0F;
+            return 0.0F;
         } else {
             Currency currency = this.vaultApi.currencies().primary();
-            Account account = (Account)this.vaultApi.account(currency, uuid).join();
+            Account account = this.vaultApi.account(currency, uuid).join();
             return account.balance().doubleValue();
         }
     }
@@ -65,7 +65,7 @@ public class EcoProvider {
             return false;
         } else {
             Currency currency = this.vaultApi.currencies().primary();
-            Account account = (Account)this.vaultApi.account(currency, uuid).join();
+            Account account = this.vaultApi.account(currency, uuid).join();
             EconomyTransaction transaction = account.deposit(BigDecimal.valueOf(amount));
             return transaction.successful();
         }
@@ -83,7 +83,7 @@ public class EcoProvider {
             return false;
         } else {
             Currency currency = this.vaultApi.currencies().primary();
-            Account account = (Account)this.vaultApi.account(currency, uuid).join();
+            Account account = this.vaultApi.account(currency, uuid).join();
             EconomyTransaction transaction = account.withdraw(BigDecimal.valueOf(funds));
             return transaction.successful();
         }

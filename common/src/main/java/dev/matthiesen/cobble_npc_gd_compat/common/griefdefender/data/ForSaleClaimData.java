@@ -11,6 +11,7 @@ public record ForSaleClaimData(
         String displayName,
         String ownerUUID,
         String ownerName,
+        String spawnPos,
         boolean isForSale,
         double salePrice
 ) {
@@ -25,11 +26,19 @@ public record ForSaleClaimData(
         boolean isForSale = economyData.isForSale();
         double salePrice = economyData.getSalePrice();
 
+        String blockPos = "unknown";
+
+        var spawnPos = claim.getData().getSpawnPos();
+        if (spawnPos != null) {
+            blockPos = spawnPos.getX() + " " + spawnPos.getY() + " " + spawnPos.getZ();
+        }
+
         return new ForSaleClaimData(
                 claim.getUniqueId().toString(),
                 claim.getDisplayName(),
                 claim.getOwnerUniqueId().toString(),
                 claim.getOwnerName(),
+                blockPos,
                 isForSale,
                 salePrice
         );
@@ -41,6 +50,7 @@ public record ForSaleClaimData(
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
                 "\"ownerName\": \"" + claimData.ownerName() + "\"" +
+                "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
                 "\"isForSale\": " + claimData.isForSale() + ", " +
                 "\"salePrice\": " + claimData.salePrice() +
                 "}";

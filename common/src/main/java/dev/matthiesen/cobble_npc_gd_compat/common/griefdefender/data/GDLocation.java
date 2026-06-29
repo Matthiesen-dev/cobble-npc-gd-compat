@@ -2,12 +2,39 @@ package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data;
 
 import com.griefdefender.api.claim.Claim;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
+import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 public record GDLocation(Level level, int x, int y, int z) {
+    public static GDLocation fromUUID(UUID claimID) {
+        var claim = GDUtils.getGriefDefenderCore().getClaim(claimID);
+        if (claim == null) return null;
+        var claimData = claim.getData();
+        if (claimData == null) return null;
+        var spawnPos = claimData.getSpawnPos();
+        if (spawnPos == null) return null;
+        Level level = getLevelFromWorldID(claim.getWorldName());
+        return new GDLocation(level, spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
+    }
+
+    public static Level getLevelFromWorldID(String worldName) {
+        var server = MatthiesenLibApi.getMinecraftServer();
+        if (server == null) return null;
+        var levels = server.getAllLevels();
+
+        for (ServerLevel level : levels) {
+            if (level.dimension().location().toString().equalsIgnoreCase(worldName)) {
+                return level;
+            }
+        }
+
+        return null;
+    }
+
     public @Nullable Claim getClaim() {
         UUID worldID = GDUtils.getWorldID(level);
         return GDUtils.getGriefDefenderCore().getClaimAt(worldID, x, y, z);

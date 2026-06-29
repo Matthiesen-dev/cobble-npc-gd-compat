@@ -176,6 +176,11 @@ These functions are available on `q.player`.
 
 - Returns: an array of `ForSaleClaimData`
 
+### `gd_start_purchase(<claimUUID>)`
+
+- Argument: claim UUID
+- Returns: `1` if the purchase process was completed successfully, otherwise `0`
+
 ## Server Functions
 
 These functions are available on `q.server`.

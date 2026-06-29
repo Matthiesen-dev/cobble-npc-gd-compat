@@ -7,6 +7,7 @@ import com.griefdefender.api.data.PlayerData;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.EconomyFunctions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 
 import java.util.HashMap;
@@ -111,6 +112,14 @@ public final class PlayerExtensions {
                 PlayerData playerData = GDUtils.getPlayerData(player.level(), player.getUUID());
                 return UniversalFunctions.intToDouble(playerData.getRentalLimit());
             });
+
+            // q.player.gd_start_purchase(<claimUUID>) returns 1 for success or 0
+            map.put("gd_start_purchase", EconomyFunctions.purchaseClaim(player));
+
+
+            // q.player.gd_start_rental(<claimUUID>) returns 1 for success or 0
+            // TODO: Rental system is more annoying to ensure will work correctly, leaving this for now as a later task
+//            map.put("gd_start_rental", EconomyFunctions.rentClaim(player));
 
             return map;
         });

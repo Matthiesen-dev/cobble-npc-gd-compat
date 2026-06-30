@@ -53,6 +53,16 @@ These object formats are reused by multiple functions.
 - `isForSale`
 - `salePrice`
 
+### `ClaimTaxData`
+
+- `uuid`
+- `displayName`
+- `ownerUUID`
+- `ownerName`
+- `spawnPos`
+- `taxPastDueDate`
+- `taxBalance`
+
 ## Universal Functions
 
 These functions are available in multiple Molang contexts.
@@ -111,6 +121,10 @@ These functions are available on `q.npc`.
 ### `gd_claim_sale_data()`
 
 - Returns: `ForSaleClaimData` for the NPC's current location, or `0` if none exists
+
+### `gd_tax_data()`
+
+- Returns: `ClaimTaxData` for the NPC's current location, or `0` if none exists
 
 ## Player Functions
 
@@ -236,6 +250,7 @@ q.npc.gd_claim_data()
 q.npc.gd_claim_owner_name()
 q.npc.gd_claim_rental_data()
 q.npc.gd_claim_sale_data()
+q.npc.gd_tax_data()
 q.player.gd_available_forsale()
 q.world.gd_available_forsale()
 ```

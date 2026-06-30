@@ -6,10 +6,7 @@ import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.*;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -101,6 +98,15 @@ public final class NPCExtensions {
                 var claim = getClaim(npcEntity);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
                 ForSaleClaimData claimData = ForSaleClaimData.fromGDLocation(claim);
+                return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
+            });
+
+            // q.npc.gd_tax_data() returns object containing claim info and tax data in the following format
+            // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "spawnPos": "string", "taxPastDueDate": "string", "taxBalance": double }
+            map.put("gd_tax_data", params -> {
+                var claim = getClaim(npcEntity);
+                if (claim.getClaim() == null) return UniversalFunctions.isNull();
+                ClaimTaxData claimData = ClaimTaxData.fromGDLocation(claim);
                 return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
             });
 

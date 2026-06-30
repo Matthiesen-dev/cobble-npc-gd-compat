@@ -84,14 +84,14 @@ public record RentalClaimData(
                 "\"uuid\": \"" + claimData.uuid() + "\", " +
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
-                "\"ownerName\": \"" + claimData.ownerName() + "\"" +
-                "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
-                "\"isForRent\": " + claimData.isForRent() +
-                "\"isRented\": " + claimData.isRented() +
-                "\"rentalRate\": \"" + claimData.rentalRate() + "\"" +
-                "\"renter\": \"" + claimData.renter() + "\"" +
-                "\"paymentType\": \"" + claimData.paymentType() + "\"" +
-                "\"rentMinTime\": \"" + claimData.rentMinTime() + "\"" +
+                "\"ownerName\": \"" + claimData.ownerName() + "\", " +
+                "\"spawnPos\": \"" + claimData.spawnPos() + "\", " +
+                "\"isForRent\": " + claimData.isForRent() + ", " +
+                "\"isRented\": " + claimData.isRented() + ", " +
+                "\"rentalRate\": \"" + claimData.rentalRate() + "\", " +
+                "\"renter\": \"" + claimData.renter() + "\", " +
+                "\"paymentType\": \"" + claimData.paymentType() + "\", " +
+                "\"rentMinTime\": \"" + claimData.rentMinTime() + "\", " +
                 "\"rentMaxTime\": \"" + claimData.rentMaxTime() + "\"" +
                 "}";
     }

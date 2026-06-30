@@ -41,7 +41,7 @@ public record SimpleClaimData(
                 "\"uuid\": \"" + claimData.uuid() + "\", " +
                 "\"displayName\": \"" + claimData.displayName() + "\", " +
                 "\"ownerUUID\": \"" + claimData.ownerUUID() + "\", " +
-                "\"ownerName\": \"" + claimData.ownerName() + "\"" +
+                "\"ownerName\": \"" + claimData.ownerName() + "\", " +
                 "\"spawnPos\": \"" + claimData.spawnPos() + "\"" +
                 "}";
     }

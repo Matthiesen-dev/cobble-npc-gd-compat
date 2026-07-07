@@ -5,13 +5,12 @@ import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import com.griefdefender.api.data.PlayerData;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDCollectors;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.SimpleClaim;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.EconomyFunctions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.function.Function;
 
 public final class PlayerExtensions {
@@ -34,10 +33,7 @@ public final class PlayerExtensions {
 
             // q.npc.gd_get_player_claims(<uuid>) returns array of claims for user in the following format
             // [ { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string" } ]
-            map.put("gd_claims", params -> {
-                List<SimpleClaim> playerClaims = GDUtils.getPlayerClaims(player.getUUID());
-                return SimpleClaim.asMolangValueFromList(playerClaims);
-            });
+            map.put("gd_claims", params -> GDCollectors.getPlayerClaims(player.getUUID()));
 
             // q.player.gd_current_claim() returns UUID as string or 0;
             map.put("gd_current_claim", params -> {

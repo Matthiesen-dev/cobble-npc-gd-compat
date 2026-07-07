@@ -26,8 +26,7 @@ public final class UniversalFunctions {
         return params -> {
             String stringUuid = params.getString(0);
             UUID uuid = UUID.fromString(stringUuid);
-            List<SimpleClaim> playerClaims = GDUtils.getPlayerClaims(uuid);
-            return SimpleClaim.asMolangValueFromList(playerClaims);
+            return GDCollectors.getPlayerClaims(uuid);
         };
     }
 
@@ -36,16 +35,10 @@ public final class UniversalFunctions {
     }
 
     public static Function<MoParams, Object> getAvailableRentals(Level level) {
-        return params -> {
-            List<RentalClaim> rentals = GDCollectors.getRentals(level);
-            return RentalClaim.asMolangValueFromList(rentals);
-        };
+        return params -> GDCollectors.getRentals(level);
     }
 
     public static Function<MoParams, Object> getAvailableForSale(Level level) {
-        return params -> {
-            List<ForSaleClaim> forSale = GDCollectors.getForSale(level);
-            return ForSaleClaim.asMolangValueFromList(forSale);
-        };
+        return params -> GDCollectors.getForSale(level);
     }
 }

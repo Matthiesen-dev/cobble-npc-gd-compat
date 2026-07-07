@@ -1,5 +1,6 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
+import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.ClaimManager;
@@ -43,13 +44,5 @@ public final class GDUtils {
 
     public static ClaimManager getClaimManager(UUID uuid) {
         return getGriefDefenderCore().getClaimManager(uuid);
-    }
-
-    public static List<SimpleClaim> getPlayerClaims(UUID player) {
-        return getGriefDefenderCore().getAllPlayerClaims(player)
-                .stream()
-                .map(GDClaimData::fromClaim)
-                .map(gdClaimData -> gdClaimData.toSimpleClaim())
-                .toList();
     }
 }

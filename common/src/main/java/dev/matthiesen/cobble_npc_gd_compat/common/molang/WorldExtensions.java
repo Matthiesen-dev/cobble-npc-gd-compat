@@ -5,7 +5,7 @@ import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 import net.minecraft.world.level.Level;
 

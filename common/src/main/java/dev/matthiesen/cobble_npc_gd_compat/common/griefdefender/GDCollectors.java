@@ -2,8 +2,8 @@ package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimManager;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.ForSaleClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.RentalClaim;
 import net.minecraft.world.level.Level;
 
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public final class GDCollectors {
-    public static List<RentalClaimData> getRentals(Level level) {
+    public static List<RentalClaim> getRentals(Level level) {
         UUID worldID = GDUtils.getWorldID(level);
         ClaimManager claimManager = GDUtils.getClaimManager(worldID);
 
@@ -34,11 +34,12 @@ public final class GDCollectors {
 
         return claimsForRent
                 .stream()
-                .map(RentalClaimData::fromClaim)
+                .map(GDClaimData::fromClaim)
+                .map(gdClaimData -> gdClaimData.toRentalClaim())
                 .toList();
     }
 
-    public static List<ForSaleClaimData> getForSale(Level level) {
+    public static List<ForSaleClaim> getForSale(Level level) {
         UUID worldID = GDUtils.getWorldID(level);
         ClaimManager claimManager = GDUtils.getClaimManager(worldID);
 
@@ -60,7 +61,8 @@ public final class GDCollectors {
 
         return claimsForSale
                 .stream()
-                .map(ForSaleClaimData::fromClaim)
+                .map(GDClaimData::fromClaim)
+                .map(gdClaimData -> gdClaimData.toForSaleClaim())
                 .toList();
     }
 }

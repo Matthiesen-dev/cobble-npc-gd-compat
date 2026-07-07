@@ -4,9 +4,9 @@ import com.bedrockk.molang.runtime.MoParams;
 import com.bedrockk.molang.runtime.value.DoubleValue;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDCollectors;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.SimpleClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.ForSaleClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.RentalClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.SimpleClaim;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public final class UniversalFunctions {
         return params -> {
             String stringUuid = params.getString(0);
             UUID uuid = UUID.fromString(stringUuid);
-            List<SimpleClaimData> playerClaims = GDUtils.getPlayerClaims(uuid);
-            return SimpleClaimData.asMolangValueFromList(playerClaims);
+            List<SimpleClaim> playerClaims = GDUtils.getPlayerClaims(uuid);
+            return SimpleClaim.asMolangValueFromList(playerClaims);
         };
     }
 
@@ -37,15 +37,15 @@ public final class UniversalFunctions {
 
     public static Function<MoParams, Object> getAvailableRentals(Level level) {
         return params -> {
-            List<RentalClaimData> rentals = GDCollectors.getRentals(level);
-            return RentalClaimData.asMolangValueFromList(rentals);
+            List<RentalClaim> rentals = GDCollectors.getRentals(level);
+            return RentalClaim.asMolangValueFromList(rentals);
         };
     }
 
     public static Function<MoParams, Object> getAvailableForSale(Level level) {
         return params -> {
-            List<ForSaleClaimData> forSale = GDCollectors.getForSale(level);
-            return ForSaleClaimData.asMolangValueFromList(forSale);
+            List<ForSaleClaim> forSale = GDCollectors.getForSale(level);
+            return ForSaleClaim.asMolangValueFromList(forSale);
         };
     }
 }

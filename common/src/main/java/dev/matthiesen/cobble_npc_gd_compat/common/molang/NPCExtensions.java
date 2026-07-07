@@ -5,8 +5,8 @@ import com.bedrockk.molang.runtime.value.StringValue;
 import com.cobblemon.mod.common.api.molang.MoLangFunctions;
 import com.cobblemon.mod.common.entity.npc.NPCEntity;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.*;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.universal.UniversalFunctions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -50,8 +50,8 @@ public final class NPCExtensions {
             // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string" }
             map.put("gd_claim_data", params -> {
                 var claim = getClaim(npcEntity);
-                SimpleClaimData claimData = SimpleClaimData.fromGDLocation(claim);
-                return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
+                var claimData = claim.getClaimData().toSimpleClaim();
+                return claimData.asMolangValue();
             });
 
             // q.npc.gd_claim_uuid() returns string or 0
@@ -88,8 +88,8 @@ public final class NPCExtensions {
             // { "uuid": "string", "displayName": "string", "ownerUUID": "string", "ownerName": "string", "rentalRate": double, "isForRent": false, "isRented": false, "renter": "string", "paymentType": "string", "rentMinTime": 0, "rentMaxTime": 0 }
             map.put("gd_claim_rental_data", params -> {
                 var claim = getClaim(npcEntity);
-                var rental = RentalClaimData.fromGDLocation(claim);
-                return rental != null ? rental.asMolangValue() : UniversalFunctions.isNull();
+                var rental = claim.getClaimData().toRentalClaim();
+                return rental.asMolangValue();
             });
 
             // q.npc.gd_claim_sale_data() returns object containing claim info and sale data in the following format
@@ -97,8 +97,8 @@ public final class NPCExtensions {
             map.put("gd_claim_sale_data", params -> {
                 var claim = getClaim(npcEntity);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
-                ForSaleClaimData claimData = ForSaleClaimData.fromGDLocation(claim);
-                return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
+                var claimData = claim.getClaimData().toForSaleClaim();
+                return claimData.asMolangValue();
             });
 
             // q.npc.gd_tax_data() returns object containing claim info and tax data in the following format
@@ -106,8 +106,8 @@ public final class NPCExtensions {
             map.put("gd_tax_data", params -> {
                 var claim = getClaim(npcEntity);
                 if (claim.getClaim() == null) return UniversalFunctions.isNull();
-                ClaimTaxData claimData = ClaimTaxData.fromGDLocation(claim);
-                return claimData != null ? claimData.asMolangValue() : UniversalFunctions.isNull();
+                var claimData = claim.getClaimData().toTaxedClaim();
+                return claimData.asMolangValue();
             });
 
             return map;

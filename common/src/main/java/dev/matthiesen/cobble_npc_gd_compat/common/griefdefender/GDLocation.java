@@ -1,7 +1,6 @@
-package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data;
+package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.griefdefender.api.claim.Claim;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUtils;
 import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -38,6 +37,10 @@ public record GDLocation(Level level, int x, int y, int z) {
     public @Nullable Claim getClaim() {
         UUID worldID = GDUtils.getWorldID(level);
         return GDUtils.getGriefDefenderCore().getClaimAt(worldID, x, y, z);
+    }
+
+    public GDClaimData getClaimData() {
+        return GDClaimData.fromGDLocation(this);
     }
 
     public boolean isWilderness() {

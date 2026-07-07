@@ -71,8 +71,8 @@ public final class EcoProvider {
         }
     }
 
-    public boolean withdrawFunds(Player player, double funds) {
-        return this.withdrawFunds(player.getUUID(), funds, true);
+    public void withdrawFunds(Player player, double funds) {
+        this.withdrawFunds(player.getUUID(), funds, true);
     }
 
     public boolean withdrawFunds(UUID uuid, double funds, boolean isPlayer) {

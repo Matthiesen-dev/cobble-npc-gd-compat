@@ -1,18 +1,63 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
+import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.claim.ClaimManager;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.RentalClaimData;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.ForSaleClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.RentalClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.SimpleClaim;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.TaxedClaim;
 import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.function.Function;
 
 public final class GDCollectors {
-    public static List<RentalClaimData> getRentals(Level level) {
+    public static <T> @NotNull String makeStringList(List<T> claims, Function<T, String> makeString) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < claims.size(); i++) {
+            sb.append(makeString.apply(claims.get(i)));
+            if (i < claims.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static ObjectValue<List<SimpleClaim>> makeSimpleClaimList(List<SimpleClaim> claims) {
+        return new ObjectValue<>(claims, c -> makeStringList(c, SimpleClaim::makeString), d -> 1.0);
+    }
+
+    public static ObjectValue<List<RentalClaim>> makeRentalClaimList(List<RentalClaim> claims) {
+        return new ObjectValue<>(claims, c -> makeStringList(c, RentalClaim::makeString), d -> 1.0);
+    }
+
+    public static ObjectValue<List<ForSaleClaim>> makeForSaleClaimList(List<ForSaleClaim> claims) {
+        return new ObjectValue<>(claims, c -> makeStringList(c, ForSaleClaim::makeString), d -> 1.0);
+    }
+
+    public static ObjectValue<List<TaxedClaim>> makeTaxedClaimList(List<TaxedClaim> claims) {
+        return new ObjectValue<>(claims, c -> makeStringList(c, TaxedClaim::makeString), d -> 1.0);
+    }
+
+    public static ObjectValue<List<SimpleClaim>> getPlayerClaims(UUID player) {
+        var list = GDUtils.getGriefDefenderCore().getAllPlayerClaims(player)
+                .stream()
+                .map(GDClaimData::fromClaim)
+                .map(gdClaimData -> gdClaimData.toSimpleClaim())
+                .toList();
+
+        return makeSimpleClaimList(list);
+    }
+
+    public static ObjectValue<List<RentalClaim>> getRentals(Level level) {
         UUID worldID = GDUtils.getWorldID(level);
         ClaimManager claimManager = GDUtils.getClaimManager(worldID);
 
@@ -32,13 +77,16 @@ public final class GDCollectors {
             }
         }
 
-        return claimsForRent
+        var list = claimsForRent
                 .stream()
-                .map(RentalClaimData::fromClaim)
+                .map(GDClaimData::fromClaim)
+                .map(gdClaimData -> gdClaimData.toRentalClaim())
                 .toList();
+
+        return makeRentalClaimList(list);
     }
 
-    public static List<ForSaleClaimData> getForSale(Level level) {
+    public static ObjectValue<List<ForSaleClaim>> getForSale(Level level) {
         UUID worldID = GDUtils.getWorldID(level);
         ClaimManager claimManager = GDUtils.getClaimManager(worldID);
 
@@ -58,9 +106,12 @@ public final class GDCollectors {
             }
         }
 
-        return claimsForSale
+        var list = claimsForSale
                 .stream()
-                .map(ForSaleClaimData::fromClaim)
+                .map(GDClaimData::fromClaim)
+                .map(gdClaimData -> gdClaimData.toForSaleClaim())
                 .toList();
+
+        return makeForSaleClaimList(list);
     }
 }

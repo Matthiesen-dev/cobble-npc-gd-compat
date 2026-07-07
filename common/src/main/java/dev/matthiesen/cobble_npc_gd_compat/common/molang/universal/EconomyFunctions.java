@@ -5,8 +5,7 @@ import com.griefdefender.api.claim.*;
 import com.griefdefender.api.economy.PaymentType;
 import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDUser;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.ForSaleClaimData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.data.GDLocation;
+import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.GDLocation;
 import dev.matthiesen.cobble_npc_gd_compat.common.impactor.EcoProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -118,11 +117,7 @@ public final class EconomyFunctions {
             }
             assert claim != null;
 
-            ForSaleClaimData claimData = ForSaleClaimData.fromGDLocation(claim);
-            if (isNull(claimData, player, Component.literal(claimNotForSale(claimUUIDString)))) {
-                return 0;
-            }
-            assert claimData != null;
+            var claimData = claim.getClaimData().toForSaleClaim();
 
             if (isNull(claim.getOwnerUUID(), player, Component.literal(claimMissingOwner(claimUUIDString)))) {
                 return 0;

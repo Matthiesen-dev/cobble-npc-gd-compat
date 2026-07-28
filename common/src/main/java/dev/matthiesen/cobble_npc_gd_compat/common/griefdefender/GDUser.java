@@ -4,8 +4,8 @@ import com.griefdefender.api.User;
 import com.griefdefender.api.claim.Claim;
 import com.griefdefender.api.data.PlayerData;
 import com.mojang.authlib.GameProfile;
-import dev.matthiesen.cobble_npc_gd_compat.common.util.FakePlayerFactory;
-import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
+import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
+import dev.matthiesen.matthiesen_core.common.core.data.fakeplayer.FakePlayerFactory;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -69,7 +69,7 @@ public final class GDUser implements User {
 
     @Override
     public ServerPlayer getOnlinePlayer() {
-        return MatthiesenLibApi.getMinecraftServer().getPlayerList().getPlayer(uniqueId);
+        return CobbleNPCGDCompat.INSTANCE.getCommonUtils().getServer().getPlayerList().getPlayer(uniqueId);
     }
 
     @Override
@@ -105,7 +105,7 @@ public final class GDUser implements User {
             return player;
         } else {
             if (this.offlinePlayer == null) {
-                MinecraftServer server = MatthiesenLibApi.getMinecraftServer();
+                MinecraftServer server = CobbleNPCGDCompat.INSTANCE.getCommonUtils().getServer();
                 this.offlinePlayer = server.getPlayerList().getPlayer(this.uniqueId);
 
                 if (this.offlinePlayer == null) {

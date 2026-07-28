@@ -5,8 +5,8 @@ import dev.matthiesen.cobble_npc_gd_compat.common.molang.NPCExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.PlayerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.ServerExtensions;
 import dev.matthiesen.cobble_npc_gd_compat.common.molang.WorldExtensions;
-import dev.matthiesen.common.matthiesen_lib_api.abstracts.AbstractCommonMod;
 import dev.matthiesen.libs.faststats.Token;
+import dev.matthiesen.matthiesen_core.common.AbstractCommonMod;
 import org.jetbrains.annotations.NotNull;
 
 public final class CobbleNPCGDCompat extends AbstractCommonMod {
@@ -34,11 +34,6 @@ public final class CobbleNPCGDCompat extends AbstractCommonMod {
         ServerExtensions.register();
         WorldExtensions.register();
         createInfoLog("Initialized");
-    }
-
-    @Override
-    public Runnable reload() {
-        return () -> {};
     }
 
     public EcoProvider ECO_PROVIDER_INSTANCE;

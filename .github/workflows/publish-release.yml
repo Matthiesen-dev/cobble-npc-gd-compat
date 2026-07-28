@@ -1,7 +1,6 @@
-name: Publish Release to Modrinth
+name: Publish Release to Github
 
 # Minimum Required Secrets:
-# - MODRINTH_TOKEN (Modrinth API token with permissions to create versions)
 # - DISCORD_WEBHOOK_URL (The URL of the Discord webhook to send notifications to)
 
 on:
@@ -10,8 +9,7 @@ on:
 
 # The dependencies below correspond to:
 # - Cobblemon (MdwFAVRL)
-# - Matthiesen Lib API (j2JrSWnx)
-# - Matthiesen Lib (cPmFkPpB)
+# - Matthiesen Core (sqEZOmQo)
 
 jobs:
   publish:

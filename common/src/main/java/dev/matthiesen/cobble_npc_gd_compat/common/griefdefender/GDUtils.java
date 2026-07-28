@@ -1,14 +1,11 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
-import com.cobblemon.mod.common.api.molang.ObjectValue;
 import com.griefdefender.api.Core;
 import com.griefdefender.api.GriefDefender;
 import com.griefdefender.api.claim.ClaimManager;
 import com.griefdefender.api.data.PlayerData;
-import dev.matthiesen.cobble_npc_gd_compat.common.griefdefender.claim.SimpleClaim;
 import net.minecraft.world.level.Level;
 
-import java.util.List;
 import java.util.UUID;
 
 public final class GDUtils {

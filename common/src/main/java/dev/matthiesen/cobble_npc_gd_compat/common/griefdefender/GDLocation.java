@@ -1,7 +1,7 @@
 package dev.matthiesen.cobble_npc_gd_compat.common.griefdefender;
 
 import com.griefdefender.api.claim.Claim;
-import dev.matthiesen.common.matthiesen_lib_api.MatthiesenLibApi;
+import dev.matthiesen.cobble_npc_gd_compat.common.CobbleNPCGDCompat;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +21,7 @@ public record GDLocation(Level level, int x, int y, int z) {
     }
 
     public static Level getLevelFromWorldID(String worldName) {
-        var server = MatthiesenLibApi.getMinecraftServer();
+        var server = CobbleNPCGDCompat.INSTANCE.getCommonUtils().getServer();
         if (server == null) return null;
         var levels = server.getAllLevels();
 

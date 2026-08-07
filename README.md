@@ -5,6 +5,9 @@
   <img src="https://mods.matthiesen.dev/badges/cobblemon.svg" alt="Cobblemon">
 </div>
 
+> ⚠️ This mod has been deprecated and is no longer going to receive updates.
+> If you are looking for a mod that allows NPCs to interact with GriefDefender claims, check out [Cobblemon NPC Extensions](https://modrinth.com/mod/cobblemon-npc-extensions) instead.
+
 A compatibility mod for Cobblemon and GriefDefender that allows NPCs to interact and full data from GriefDefender claims.
 
 ## Requirements
